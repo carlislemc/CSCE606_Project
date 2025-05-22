@@ -1,0 +1,1 @@
+GOOGLE_CLIENT_ID=XXX GOOGLE_CLIENT_SECRET=YYY ADMIN_EMAILS="carlislem@tamu.edu" nohup bundle exec puma -e development -p 3000 &

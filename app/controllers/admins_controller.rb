@@ -142,6 +142,7 @@ class AdminsController < ApplicationController
           Rails.logger.info("Table name: #{table_name}")
           csv_content = entry.get_input_stream.read
 
+          Rails.logger.error("Import looking at #{table_name}")
           case table_name
           when :courses
             import_courses(csv_content)
@@ -155,9 +156,11 @@ class AdminsController < ApplicationController
             save_csv_to_file(name, empty_csv)
           else
             import_generic(table_name, csv_content)
-          end
-        end
-      end
+          end #case
+        rescue => e
+          Rails.logger.error("Import failed: #{e.message}")
+        end # entry
+      end # zipfile
     rescue => e
       Rails.logger.error("Import failed: #{e.message}")
       redirect_to root_path, alert: "Import failed: #{e.message}"

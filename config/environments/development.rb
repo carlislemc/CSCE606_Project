@@ -4,7 +4,13 @@ require "active_support/core_ext/integer/time"
 require "googleauth"
 
 Rails.application.configure do
+  config.action_dispatch.trusted_proxies = [
+    # Trust localhost and your local network if needed
+    IPAddr.new("127.0.0.1"),
+    IPAddr.new("::1")
+  ]
   # Configure 'rails notes' to inspect Cucumber files
+  config.hosts << "csceta.martincarlisle.com"
   config.annotations.register_directories("features")
   config.annotations.register_extensions("feature") { |tag| /#\s*(#{tag}):?\s*(.*)$/ }
 
@@ -102,5 +108,5 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
 
-  config.log_level = :debug
+  config.log_level = :info
 end
