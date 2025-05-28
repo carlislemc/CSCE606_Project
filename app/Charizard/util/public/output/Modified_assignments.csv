@@ -1,2 +1,16 @@
-Course Number,Section ID,Instructor Name,Instructor Email,Student Name,Student Email,UIN,Calculated Score
-
+course_number,section,ins_name,ins_email,stu_name,stu_email,score,uin,assigned,confirm
+712,600,Hamilton,hamilton@tamu.edu,Yuncheng Yu,yyc@tamu.edu,12100,224004002,true,false
+671,600,J. Moore,jmichael@tamu.edu,Vasudha Devarakonda,vasudha.devarakonda@tamu.edu,12110,434006319,true,false
+712,600,Hamilton,hamilton@tamu.edu,Yuncheng Yu,yyc@tamu.edu,12100,224004002,true,false
+999,500,Carlisle,carlislem@tamu.edu,Anurag Das,anuragdiisc.ac.in@tamu.edu,12100,327003683,true,true
+313,511-514,S. Kumar,sandeep.kumar@tamu.edu,Aleksandr Earnest,arearnest7@tamu.edu,13200,824004592,false,false
+999,505,Carlisle,carlislem@tamu.edu,Jionghao Wang,jionghao@tamu.edu,2100,635009690,true,true
+671,600,J. Moore,jmichael@tamu.edu,Vasudha Devarakonda,vasudha.devarakonda@tamu.edu,12110,434006319,,false
+313,511-514,S. Kumar,sandeep.kumar@tamu.edu,Aleksandr Earnest,arearnest7@tamu.edu,13200,824004592,,false
+999,502,Carlisle,carlislem@tamu.edu,Fengzhi Guo,fengzh_g@tamu.edu,12100,432001783,true,true
+712,600,Hamilton,hamilton@tamu.edu,Yuncheng Yu,yyc@tamu.edu,12100,224004002,,false
+313,511-514,S. Kumar,sandeep.kumar@tamu.edu,Anurag Das,anuragdiisc.ac.in@tamu.edu,13200,327003683,false,false
+712,600,Hamilton,hamilton@tamu.edu,Yuncheng Yu,yyc@tamu.edu,12100,224004002,,false
+671,600,J. Moore,jmichael@tamu.edu,Vasudha Devarakonda,vasudha.devarakonda@tamu.edu,12110,434006319,,false
+999,500,Carlisle,carlislem@tamu.edu,Anurag Das,anuragdiisc.ac.in@tamu.edu,12100,327003683,,false
+313,511-514,S. Kumar,sandeep.kumar@tamu.edu,Aleksandr Earnest,arearnest7@tamu.edu,13200,824004592,,false
