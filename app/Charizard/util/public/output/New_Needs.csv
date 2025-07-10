@@ -1,5 +1,4 @@
 Course_Name,Course_Number,Section,Instructor,Faculty_Email,TA,Senior_Grader,Grader,Professor Pre-Reqs
 TBD,999,502,Carlisle,carlislem@tamu.edu,1,0,0,N/A
-INTRO TO COMPUTER SYSTEM,313,511-514,S. Kumar,sandeep.kumar@tamu.edu,1,0,0,N/A
-COMP-HUMAN INTERACTION,671,600,J. Moore,jmichael@tamu.edu,1,0,0,N/A
-DIGITAL FORENSICS ENGINEERING,712/489,600,Hamilton,hamilton@tamu.edu,1,0,0,N/A
+SP TOPICS,689,600,T. Galanti,galanti@tamu.edu,0,0,1,N/A
+COMP HUMAN INTERACTION,436/436H,500,Moore,jmichael@tamu.edu,0,0,1,N/A

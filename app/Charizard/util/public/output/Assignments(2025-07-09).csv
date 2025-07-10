@@ -1,0 +1,120 @@
+Assignment,Course Number,Section ID,Instructor Name,Instructor Email,Student Name,Student Email,UIN,Phone Number,Enrollment hours,Degree,Country of Citizenship,English Certification Level,Advisor
+TA,313,200-502,Tsai,chiache@tamu.edu,Harpreet Singh Chawla,harpreetsc@tamu.edu,631000411,2027901586,9,PhD,IN,1,Chia-Che Tsai (chiache@tamu.edu)
+TA,625,600,Choe,choe@tamu.edu,Gaurangi Sinha,gaurangisinha@tamu.edu,734004353,9793441041,9,PhD,IN,2,Zhengzhong Tu (tzz@tamu.edu)
+TA,482,932,Shell,dshell@tamu.edu,Chengyuan Qian,cyqian@tamu.edu,632000197,8326969277,9,PhD,CN,1,Dylan A. Shell (dshell@tamu.edu)
+TA,420,500,Ioerger,ioerger@tamu.edu,Vaibhav Bajaj,vaibhavbajaj@tamu.edu,931002095,9797392707,9,PhD,IN,1,Guni Sharon (guni@tamu.edu)
+TA,441,500,Kalantari,nimak@tamu.edu,Qihao He,phyqh@tamu.edu,634005769,9793210988,9,PhD,CN,1,Nima Khademi Kalantari (nimak@tamu.edu)
+TA,676,600,Caverlee,caverlee@tamu.edu,Lingfeng Shi,lingfengs111@tamu.edu,835009503,9799697031,6,PhD,CN,1,James Caverlee (caverlee@tamu.edu)
+TA,421,500,Ji,sji@tamu.edu,Xuan Zhang,xuan.zhang@tamu.edu,630009568,9796761463,9,PhD,US,1,Shuiwang Ji (sji@tamu.edu)
+TA,462,500,Muzahid,abdullah.muzahid@tamu.edu,Avery Johnson,averyjohnson@tamu.edu,828004424,9403151000,9,PhD,US,1,Abdullah Muzahid (abdullah.muzahid@tamu.edu)
+TA,633,600,Yang,tianbao-yang@tamu.edu,Ming Yang,myang@tamu.edu,735006788,5183689861,9,PhD,CN,3,Tianbao Yang (tianbao-yang@tamu.edu)
+TA,482,931,Wade,paulinewade@tamu.edu,Brady Testa,btesta@tamu.edu,430000792,503-858-4143,9,PhD,US,1,Juan Garay (garay@tamu.edu)
+TA,670,600,Y. Zhang,yuzhang@tamu.edu,Hangxiao Zhu,hangxiao@tamu.edu,635008676,6145841291,9,PhD,CN,1,Yu Zhang (yuzhang@tamu.edu)
+TA,313,503-506,Houngninou,davidkebo@tamu.edu,Dishant Parag Zaveri,dishant.zaveri@tamu.edu,236003775,9795993461,9,Masters (Non-Thesis),IN,1,
+TA,482,935,Hammond,hammond@tamu.edu,Abdullah Aman Tutul,abdullahaman633@tamu.edu,530005489,9795757897,9,PhD,BD,1,Other (other@tamu.edu)
+TA,310,200-500,T. Nguyen,tung@tamu.edu,Hasnat Md Abdullah,hasnat.md.abdullah@tamu.edu,333007086,9797466332,9,PhD,BD,2,Other (other@tamu.edu)
+TA,421,500,Ji,sji@tamu.edu,Yuchao Lin,kruskallin@tamu.edu,631009523,9792046162,9,PhD,CN,1,Shuiwang Ji (sji@tamu.edu)
+TA,435,200-500,O. Pearce,olgap@tamu.edu,Darin Peries,vincent2013@tamu.edu,831003524,7134175330,9,PhD,US,1,Timothy A. Davis (davis@tamu.edu)
+TA,642,600,Sharon,guni@tamu.edu,James Ault,jault@tamu.edu,727002915,9732247060,9,PhD,US,1,Guni Sharon (guni@tamu.edu)
+TA,314,501,Lightfoot,rob.light@tamu.edu,Ellika Mishra,ellikamishra@tamu.edu,436000960,9795757859,9,Masters (Non-Thesis),IN,1,
+TA,463,500,Loguinov,dmitri@tamu.edu,Arif Arman,arman@tamu.edu,128001831,9794220133,9,PhD,BD,2,Dmitri Loguinov (dmitri@tamu.edu)
+TA,411,500,S. Zhou,samsonzhou@tamu.edu,Sicong Huang,siconghuang@tamu.edu,326002977,8328293113,9,PhD,CN,1,Bobak Mortazavi (bobakm@tamu.edu)
+TA,222,505,Carlisle,carlislem@tamu.edu,Jose Salazar,jlsalazar@tamu.edu,535004820,7144786573,9,PhD,US,1,Juan Garay (garay@tamu.edu)
+TA,616,600,Houngninou,davidkebo@tamu.edu,Anwesha Basu,anwesha.basu@tamu.edu,630009374,9793449322,9,PhD,IN,1,James Caverlee (caverlee@tamu.edu)
+TA,435,200-500,O. Pearce,olgap@tamu.edu,Samraat Gupta,samraatg@tamu.edu,227000244,7163356230,9,PhD,IN,1,John Keyser (keyser@tamu.edu)
+TA,625,600,Choe,choe@tamu.edu,William Kang,rkdvlfah1018@tamu.edu,231000580,979-575-9987,9,Masters (Thesis),CA,1,
+TA,636,600,Jiang,tianbao-yang@tamu.edu,Wenjing Chen,jj9754@tamu.edu,327008755,9794028352,9,PhD,US,1,Victoria Crawford (vcrawford@tamu.edu)
+TA,431,500,Wade,paulinewade@tamu.edu,Riddhi Prakash Ghate,riddhighate.07@tamu.edu,335007140,530-981-9824,9,Masters (Non-Thesis),IN,1,
+TA,483,932,Mahapatra,rabi@tamu.edu,Swayamprava Satpathy,swayam.sp6@tamu.edu,734004198,9799439755,9,PhD,IN,1,Rabinarayan Mahapatra (rabi@tamu.edu)
+TA,633,600,Yang,tianbao-yang@tamu.edu,Yichen Tao,yichentao@tamu.edu,630007741,2135239254,9,PhD,CN,1,Bobak Mortazavi (bobakm@tamu.edu)
+TA,436,501,Moore,jmichael@tamu.edu,Kiyrah Keith,kiyrah@tamu.edu,537000148,3606892150,9,PhD,US,1,None of the above
+TA,420,500,Ioerger,ioerger@tamu.edu,Ankur Nath,anath@tamu.edu,432003232,9797394045,9,PhD,US,1,Alan Kuhnle (kuhnle@tamu.edu)
+TA,312,502-505,Mahapatra,abdullah.muzahid@tamu.edu,Pranati Majhi,pmajhi@tamu.edu,733000061,9793441614,9,PhD,IN,1,Eun Kim (ejkim@tamu.edu)
+TA,451,500,Tsai,chiache@tamu.edu,Haidong Wang,hdwang@tamu.edu,930001794,9794224872,9,PhD,CN,1,Jyh Liu (liu@tamu.edu)
+TA,614,600,E. Kim,ejkim@tamu.edu,Sabuj Laskar,sabuj.laskar@tamu.edu,833003078,9794367645,9,PhD,BD,1,Eun Kim (ejkim@tamu.edu)
+TA,410,500-600,Bettati,bettati@tamu.edu,Chan-Wei Hu,huchanwei123@tamu.edu,231003486,9793272065,9,PhD,TW,1,None of the above
+TA,465,500,Saxena,nsaxena@tamu.edu,Md Mojibur Rahman Redoy Akanda,redoy.akanda@tamu.edu,232008893,9797395704,9,PhD,BD,1,Nitesh Saxena (nsaxena@tamu.edu)
+TA,735,600,Sarin,sarin@tamu.edu,Setu Gupta,setu@tamu.edu,135000533,9793443712,9,PhD,US,1,Daniel Jimenez (djimenez@tamu.edu)
+TA,606,600,Ritchey,pcr@tamu.edu,Tian Liu,ltmask@tamu.edu,525004380,4692898298,9,PhD,CN,1,James Caverlee (caverlee@tamu.edu)
+TA,312,200-501,Jimenez,djimenez@tamu.edu,Saba Mostofi,saba.mostofi@tamu.edu,834005727,9793443970,9,PhD,IR,1,Daniel Jimenez (djimenez@tamu.edu)
+TA,464,500,Stoleru,stoleru@tamu.edu,Sangwoo Lee,swlee@tamu.edu,933004520,979-326-2753,9,PhD,KR,2,Radu Stoleru (stoleru@tamu.edu)
+TA,314,500,Lightfoot,rob.light@tamu.edu,Yixin Chen,chen777@tamu.edu,933004996,6085150776,9,PhD,CN,1,Alan Kuhnle (kuhnle@tamu.edu)
+TA,313,507-510,S. Kumar,sandeep.kumar@tamu.edu,Zelun Liu,zelunliu@tamu.edu,531002487,4692677333,9,PhD,CN,1,Dmitri Loguinov (dmitri@tamu.edu)
+TA,440,500,Klappenecker,andreas-klappenecker@tamu.edu,Rutvik Patel,rsp7@tamu.edu,729007517,832-454-3168,9,PhD,US,1,Juan Garay (garay@tamu.edu)
+TA,436,500,Moore,jmichael@tamu.edu,Emory Qian Lu,qianlu@tamu.edu,229004882,979-465-0064,9,PhD,CN,2,Jeeeun Kim (jeeeun.kim@tamu.edu)
+TA,465,500,Gu,guofei@tamu.edu,Jianwei Huang,jwhuang@tamu.edu,529005336,9799851097,9,PhD,CN,1,Guofei Gu (guofei@tamu.edu)
+TA,442,500,Wang,wenping@tamu.edu,Anshul Mendiratta,anshulmendiratta@tamu.edu,133007283,9795711869,9,PhD,US,1,Scott Schaefer (schaefer@tamu.edu)
+TA,452,500,O'Kane,jokane@tamu.edu,Achleshwar Luthra,luthra@tamu.edu,536003846,4126159990,9,PhD,IN,1,Tomer Galanti (galanti@tamu.edu)
+TA,313,515-518,S. Kumar,sandeep.kumar@tamu.edu,Rosendo Narvaez,rosendo@tamu.edu,827004218,9567328976,9,PhD,US,1,Tracy Hammond (hammond@tamu.edu)
+TA,313,596,Tyagi,tyagi@tamu.edu,Gabriel Stella,gabrielrstella@tamu.edu,126005735,2188819779,9,PhD,US,1,Dmitri Loguinov (dmitri@tamu.edu)
+TA,465,500,Saxena,nsaxena@tamu.edu,Wanda Guo,wdguo@tamu.edu,734003358,4706528061,9,PhD,US,1,Nitesh Saxena (nsaxena@tamu.edu)
+TA,313,596,Tyagi,tyagi@tamu.edu,Ankitha Prasad,ankithap@tamu.edu,936002047,9793264536,9,Masters (Non-Thesis),IN,1,
+TA,314,200-502,Lee,hlee42@tamu.edu,Md Maklachur Rahman,maklachur@tamu.edu,532003044,9797398667,9,PhD,BD,1,Tracy Hammond (hammond@tamu.edu)
+TA,629,600,Klappenecker,ajiang@tamu.edu,Pouyan Forghani,pouyan.forghani@tamu.edu,729007625,979-595-8395,9,PhD,IR,1,Juan Garay (garay@tamu.edu)
+TA,735,600,Sarin,sarin@tamu.edu,Libing Zeng,libingzeng@tamu.edu,130004739,9794026785,9,PhD,CN,1,Nima Khademi Kalantari (nimak@tamu.edu)
+TA,411,501,Veldt,nveldt@tamu.edu,Liudeng Wang,eureka@tamu.edu,436000238,9797039329,9,PhD,CN,1,Victoria Crawford (vcrawford@tamu.edu)
+TA,434,500,K. NGUYEN,khanhtn@tamu.edu,Max Smith,maxsmith271346@tamu.edu,728005761,2146492377,9,Masters (Thesis),US,1,Jyh Liu (liu@tamu.edu)
+TA,477,500,Shreyas,shreyas.kumar@tamu.edu,Maitreya Niranjan,maitreya.niranjan@tamu.edu,635009168,9795747855,10,Masters (Thesis),IN,1,Shreyas Kumar (shreyas.kumar@tamu.edu)
+TA,489,500,S. Kumar,shreyas.kumar@tamu.edu,Mengxiao Wang,jacksonwang@tamu.edu,834005705,6128145421,9,PhD,US,1,Guofei Gu (guofei@tamu.edu)
+TA,331,906-907,Taele,ptaele@tamu.edu,Liberato Aguilar,liberatoaguilar@tamu.edu,730001728,9155267558,9,Masters (Non-Thesis),US,1,
+TA,331,908-909,Taele,ptaele@tamu.edu,Tzu-Shen Wang,jasonwang017@tamu.edu,530005960,9799859023,9,PhD,TW,1,Juan Garay (garay@tamu.edu)
+TA,331,902-903,Taele,ptaele@tamu.edu,Pasan Gunawardena,pgunawardena@tamu.edu,934007587,9207286484,9,PhD,US,1,Radu Stoleru (stoleru@tamu.edu)
+TA,331,910-911,Taele,ptaele@tamu.edu,Bethany Witemeyer,bethanywitemeyer@tamu.edu,330007361,3256684598,9,PhD,US,1,Shinjiro Sueda (sueda@tamu.edu)
+TA,331,916,S. Thomas,sthomas@tamu.edu,Shahin John John Stella,ivin-98@tamu.edu,635008814,9795755523,9,PhD,US,1,Jianer Chen (j-chen3@tamu.edu)
+TA,331,970,S. Thomas,sthomas@tamu.edu,Jayden Cox,jayden_cox@tamu.edu,131006938,7138252439,12,Masters (Non-Thesis),US,1,
+TA,331,900-901,Taele,ptaele@tamu.edu,Vivian Vo,vvo5683@tamu.edu,528004304,8179378837,9,Masters (Non-Thesis),US,1,
+TA,433,500,Crawford,vcrawford@tamu.edu,Julian Ezra Samuel,julian_ezra@tamu.edu,535006802,9797212218,9,Masters (Thesis),US,2,Bobak Mortazavi (bobakm@tamu.edu)
+TA,482,933,Shreyas,shreyas.kumar@tamu.edu,Willem Glenewinkel,wbg378@tamu.edu,631005563,737-218-8536,10,Masters (Thesis),US,1,Shreyas Kumar (shreyas.kumar@tamu.edu)
+TA,310,501,T. Nguyen,tung@tamu.edu,Yuxuan Zhang,yuz516@tamu.edu,436000496,4129798762,9,PhD,CN,1,Guofei Gu (guofei@tamu.edu)
+TA,634,600,Shipman,shipman@tamu.edu,Esau Hutcherson,esau.hutcherson@tamu.edu,630006105,4042420001,9,PhD,US,1,Frank Shipman (shipman@tamu.edu)
+TA,410,500-600,Bettati,bettati@tamu.edu,Amran Haroon,amran.haroon@tamu.edu,112003603,4693898640,9,PhD,BD,1,Radu Stoleru (stoleru@tamu.edu)
+TA,331,904-905,Taele,ptaele@tamu.edu,Sarah Alramahi,sarahalr@tamu.edu,832005057,2145662335,13,Masters (Non-Thesis),US,1,
+TA,439,500,Botacin,botacin@tamu.edu,Seyyed Ali Ayati,ali.a@tamu.edu,833002430,9793449829,9,PhD,US,2,Marcus Botacin (botacin@tamu.edu)
+TA,629,600,Klappenecker,ajiang@tamu.edu,Wendi Yu,wendiyu@tamu.edu,734003365,9792247095,9,PhD,CN,1,Tianbao Yang (tianbao-yang@tamu.edu)
+TA,482,934,T. Nguyen,tung@tamu.edu,Zhengming Yu,yuzhengming@tamu.edu,234008999,9795876906,9,PhD,US,1,Wenping Wang (wenping@tamu.edu)
+TA,222,200,T. Leyk,teresa19@tamu.edu,Alex Beamer,alexbeamer@tamu.edu,332004986,832-248-7137,12,Masters (Non-Thesis),US,1,John Keyser (keyser@tamu.edu)
+TA,412,500,Merchant,amit.merchant@tamu.edu,Alisha Raj,alisharaj2607@tamu.edu,735007776,9795741524,9,Masters (Non-Thesis),IN,1,
+TA,222,503,Carlisle,carlislem@tamu.edu,Ryan Parmer,ryan.p_22@tamu.edu,131009527,4322501497,12,Masters (Thesis),US,1,
+TA,999,507,Carlisle,carlislem@tamu.edu,Linli Zhou,lynn94874@tamu.edu,936001052,9794228100,9,PhD,CN,3,Tianbao Yang (tianbao-yang@tamu.edu)
+TA,999,508,Carlisle,carlislem@tamu.edu,Changcheng Yuan,ericycc@tamu.edu,535005117,5309796191,6,PhD,CN,3,Khanh Nguyen (khanhtn@tamu.edu)
+TA,999,501,Carlisle,carlislem@tamu.edu,Chunli Peng,chunli.peng@tamu.edu,334008399,2016301249,9,PhD,CN,2,Other (other@tamu.edu)
+TA,999,503,Carlisle,carlislem@tamu.edu,Jiahao Chen,jiahao.chen@tamu.edu,637004195,1234567890,9,PhD,CN,2,Cheng Zhang (chzhang@tamu.edu)
+TA,331,912-913,Lightfoot,rob.light@tamu.edu,Anika Garg,anikagarg@tamu.edu,330004874,9253145760,10,Masters (Thesis),US,1,Shreyas Kumar (shreyas.kumar@tamu.edu)
+TA,331,914-915,Lightfoot,rob.light@tamu.edu,Ahmad Hassani,amdiii@tamu.edu,332003142,9797211137,9,PhD,IR,2,Daniel Jimenez (djimenez@tamu.edu)
+TA,671,600,J. Moore,jmichael@tamu.edu,Jionghao Wang,jionghao@tamu.edu,635009690,9795750429,9,PhD,CN,3,Wenping Wang (wenping@tamu.edu)
+TA,712,600,Hamilton,hamilton@tamu.edu,Fengzhi Guo,fengzh_g@tamu.edu,432001783,9799858461,9,PhD,US,1,Cheng Zhang (chzhang@tamu.edu)
+TA,313,511-514,S. Kumar,sandeep.kumar@tamu.edu,Anurag Das,anuragdiisc.ac.in@tamu.edu,327003683,9797398902,9,PhD,US,1,Ricardo Gutierrez-Osuna (rgutier@tamu.edu)
+Grader,436,500,Moore,jmichael@tamu.edu,Shrinivas Vasant Shanbhag,shrshanb@tamu.edu,934008523,9793500982,9,Masters (Non-Thesis),IN,1,
+Grader,462,500,Muzahid,abdullah.muzahid@tamu.edu,Raja Karthik Vobugari,raju@tamu.edu,635009384,7138855136,10,Masters (Non-Thesis),IN,2,
+Grader,434,500,K. NGUYEN,khanhtn@tamu.edu,Shubham Singhal,shubhamsinghaltamu@tamu.edu,137002906,9198110000,9,Masters (Thesis),IN,2,Scott Schaefer (schaefer@tamu.edu)
+Grader,451,500,Tsai,chiache@tamu.edu,Nandinii Yeleswarapu,nandiniiys@tamu.edu,136005008,6179056324,9,Masters (Thesis),KE,1,
+Grader,314,200-502,Lee,hlee42@tamu.edu,Uday Kumar Reddy Mettukuru,urt23@tamu.edu,436000929,9792194615,9,Masters (Non-Thesis),IN,3,
+Grader,312,502-505,Mahapatra,abdullah.muzahid@tamu.edu,Siva Sai Deepank Manoj,deeps45@tamu.edu,437005609,1234567560,9,Masters (Non-Thesis),IN,3,
+Grader,310,501,T. Nguyen,tung@tamu.edu,Sujith Julakanti,s02@tamu.edu,335007274,9793449880,9,Masters (Non-Thesis),US,2,
+Grader,312,200-501,Jimenez,djimenez@tamu.edu,Dipanwita Rano,dipanwita22rano@tamu.edu,436000715,9795993799,9,Masters (Thesis),IN,1,
+Grader,636,600,Jiang,tianbao-yang@tamu.edu,. Smriti,smriti7857@tamu.edu,636005445,9795751704,9,Masters (Non-Thesis),US,2,
+Grader,431,500,Wade,paulinewade@tamu.edu,Simran Kaur,simrankaur@tamu.edu,335006983,3137618326,9,Masters (Non-Thesis),IN,3,
+Grader,313,507-510,S. Kumar,sandeep.kumar@tamu.edu,Sahil Fayaz,sf08@tamu.edu,436000918,9794029624,9,Masters (Non-Thesis),IN,1,
+Grader,642,600,Sharon,guni@tamu.edu,Sicheng Chen,sicheng.chen@tamu.edu,334003466,979-344-7592,4,Masters (Non-Thesis),CN,2,
+Grader,411,500,S. Zhou,samsonzhou@tamu.edu,Navya Priya Nandimandalam,navyapriya_n@tamu.edu,136004813,9795749145,9,Masters (Non-Thesis),IN,1,
+Grader,314,501,Lightfoot,rob.light@tamu.edu,Priyal Khapra,priyalkhapra@tamu.edu,936001826,9795741351,10,Masters (Non-Thesis),IN,1,Robert H. Lightfoot (rob.light@tamu.edu)
+Grader,313,511-514,S. Kumar,sandeep.kumar@tamu.edu,Navya Unnikrishnan,navya_unni@tamu.edu,836001117,3467753704,9,Masters (Non-Thesis),US,1,John Keyser (keyser@tamu.edu)
+Grader,441,500,Kalantari,nimak@tamu.edu,Andrew Zehrer,andrewzehrer@tamu.edu,930005389,8328791131,9,Masters (Non-Thesis),US,1,John Keyser (keyser@tamu.edu)
+Grader,411,501,Veldt,nveldt@tamu.edu,Gabe Wild,gabew2024@tamu.edu,731003602,9725055018,12,Masters (Non-Thesis),US,1,Other (other@tamu.edu)
+Grader,313,515-518,S. Kumar,sandeep.kumar@tamu.edu,Kuan-Ru Huang,randy103104@tamu.edu,236002647,6267434095,9,Masters (Thesis),TW,3,Zhengzhong Tu (tzz@tamu.edu)
+Grader,313,503-506,Houngninou,davidkebo@tamu.edu,Yash Honrao,yash.honrao@tamu.edu,136004811,9793447800,9,Masters (Non-Thesis),IN,1,John Keyser (keyser@tamu.edu)
+Grader,436,501,Moore,jmichael@tamu.edu,Steven Luo,hld7dp@tamu.edu,831006011,8328021864,9,Masters (Non-Thesis),CN,2,
+Grader,313,200-502,Tsai,chiache@tamu.edu,Sam Zhang (Sam),ximingzhang.sam@tamu.edu,631002749,3462286711,10,Masters (Thesis),US,1,Jason M. O'Kane (jokane@tamu.edu)
+Grader,477,500,Shreyas,shreyas.kumar@tamu.edu,Yash Sameer Phatak,ysphatak@tamu.edu,136004827,9795346425,10,Masters (Non-Thesis),IN,2,John Keyser (keyser@tamu.edu)
+Grader,310,200-500,T. Nguyen,tung@tamu.edu,Zachary Roge Laguna,zacharylaguna@tamu.edu,727005681,9728044228,10,Masters (Non-Thesis),US,1,John Keyser (keyser@tamu.edu)
+Grader,314,500,Lightfoot,rob.light@tamu.edu,Ajay Jagannath,ajayjagan2511@tamu.edu,236002822,9795753290,10,Masters (Non-Thesis),IN,1,
+Grader,671,600,J. Moore,jmichael@tamu.edu,Rishik Gupta,rishikgupta@tamu.edu,436000920,979-739-8120,9,Masters (Non-Thesis),IN,1,
+Grader,489,500,Shreyas Kumar,shreyas.kumar@tamu.edu,Nikhitha Pasula,nikhitha.14@tamu.edu,234009269,9793443982,4,Masters (Thesis),IN,2,Ruihong Huang (huangrh@tamu.edu)
+Grader,689,602,Z. Tu,tzz@tamu.edu,Simran Jot Kaur,simranjotkaur@tamu.edu,836001114,9799692009,9,Masters (Non-Thesis),IN,2,
+Grader,489,500,R. HUANG,huangrh@tamu.edu,Mahima Kardam Bhatt,mahima19@tamu.edu,136004825,9797398850,9,Masters (Non-Thesis),IN,1,
+Senior Grader,481,599,Wade,paulinewade@tamu.edu,Tanishq Chopra,tanishq.chopra@tamu.edu,436000948,9795759766,9,Masters (Non-Thesis),IN,2,
+Senior Grader,181,599,Tyagi,tyagi@tamu.edu,Sai Jaideep Reddy Mure,saijaideepreddymure@tamu.edu,635009349,979-326-964,10,Masters (Non-Thesis),IN,3,
+Senior Grader,681,600,Schaefer,schaefer@tamu.edu,Akanksha Sachin Shah,shahakanksha@tamu.edu,136005001,2148995566,9,Masters (Non-Thesis),IN,1,
+Senior Grader,481,599,Wade,paulinewade@tamu.edu,Eshaan Mandal,eshaanmandal@tamu.edu,335006499,4257808190,9,Masters (Non-Thesis),IN,2,
+Senior Grader,681,600,Schaefer,schaefer@tamu.edu,Sai Nithin Maddi,sai_nithin@tamu.edu,435003987,9799467635,10,Masters (Non-Thesis),US,1,
+Senior Grader,181,599,Tyagi,tyagi@tamu.edu,Vinay Singh,vinaysingh@tamu.edu,335008079,9795758411,9,Masters (Non-Thesis),IN,1,John Keyser (keyser@tamu.edu)
