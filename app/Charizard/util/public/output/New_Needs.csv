@@ -1,4 +1,3 @@
 Course_Name,Course_Number,Section,Instructor,Faculty_Email,TA,Senior_Grader,Grader,Professor Pre-Reqs
-TBD,999,502,Carlisle,carlislem@tamu.edu,1,0,0,N/A
-SP TOPICS,689,600,T. Galanti,galanti@tamu.edu,0,0,1,N/A
-COMP HUMAN INTERACTION,436/436H,500,Moore,jmichael@tamu.edu,0,0,1,N/A
+INTRO TO COMPUTER SYSTEM,313/313H,200-502,Tsai,chiache@tamu.edu,0,0,1,N/A
+COMPILER DESIGN,434/605,500,K. NGUYEN,khanhtn@tamu.edu,0,0,1,N/A
