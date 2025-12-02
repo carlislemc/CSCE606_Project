@@ -6,6 +6,9 @@ class ApplicantsController < ApplicationController
   skip_before_action :require_login, if: -> { Rails.env.test? }
 
   before_action :authorize_admin_or_faculty!, only: [:index, :wipe_applicants, :search, :search_email, :search_uin]
+  before_action :authorize_owner_or_admin_or_faculty!, only: %i[show edit update destroy]
+
+  
 
 
 
@@ -249,6 +252,21 @@ class ApplicantsController < ApplicationController
       else
         redirect_to root_path, alert: "Unauthorized access."
       end
+    end
+
+    
+    
+    def authorize_owner_or_admin_or_faculty!
+      @applicant = Applicant.find(params[:id])
+      if session[:role].to_s == "admin" or session[:role].to_s == "faculty"
+        return
+      elsif session[:user_id].present?
+        user = User.find(session[:user_id])
+        if user.applicant == @applicant
+          return
+        end
+      end
+      redirect_to root_path, alert: "Unauthorized access."
     end
   
 

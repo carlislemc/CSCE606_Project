@@ -11,8 +11,8 @@ from models.DataModel import DataModel
 
 class Course(DataModel):
     class DataFormat:
-        COURSE_NUM_REGEX = "\\d{3}"  # Matches 3 digit numbers
-        COURSE_NUM_RANGE_REGEX = "\\d{3}(?:-[0-9a-zA-Z]{1,3})?"  # Matches '500-GV' or '500-503' or '500' etc
+        COURSE_NUM_REGEX = "\\d{3,4}"  # Matches 3 or 4 digit numbers
+        COURSE_NUM_RANGE_REGEX = "\\d{3,4}(?:-[0-9a-zA-Z]{1,4})?"  # Matches '500-GV', '500-503', '500', '5001', '5001-GV', etc
         COURSE_NAME = "Course_Name"
         COURSE_NUMS = "Course_Number"
         SECTION_IDS = "Section"
