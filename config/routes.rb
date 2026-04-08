@@ -62,6 +62,7 @@ Rails.application.routes.draw do
       get :search
       get :search_email
       get :search_uin
+      get :search_course
     end
   end
 

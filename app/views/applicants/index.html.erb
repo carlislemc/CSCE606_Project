@@ -39,8 +39,8 @@
     <div class="search search--slim">
       <%= search_form_for @q, url: applicants_path, method: :get do |f| %>
         <div class="search-container">
-          <%= f.label :name_or_email_or_uin_text_or_degree_cont, "Search for Applicant" %>
-          <%= f.text_field :name_or_email_or_uin_text_or_degree_cont, placeholder: "Enter Name, Email, UIN, Degree", class: "search-input" %>
+          <%= f.label :name_or_email_or_uin_text_or_degree_or_course_choices_cont, "Search for Applicant" %>
+          <%= f.text_field :name_or_email_or_uin_text_or_degree_or_course_choices_cont, placeholder: "Enter Name, Email, UIN, Degree, Course", class: "search-input" %>
           <%= f.submit "Search", class: "search-btn" %>
           <%= link_to "Clear", applicants_path, class: "search-btn" %>
         </div>

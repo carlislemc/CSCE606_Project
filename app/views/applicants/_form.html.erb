@@ -32,12 +32,12 @@
       <%= form.text_field :uin %>
     </div>
     <div>
-      <%= form.label :gpa, "GPA" %>
+      <%= form.label :gpa, "TAMU GPA (estimate if 1st semester at TAMU)" %>
       <%= form.text_field :gpa %>
     </div>
 
     <div>
-      <%= form.label :hours, "Hours Enrolled" %>
+      <%= form.label :hours, "Semester Hours Enrolled" %>
       <%= form.text_field :hours %>
     </div>
 
@@ -52,7 +52,7 @@
     </div>
 
     <div class="full-width">
-      <%= form.label :prev_course, "Previously Taken Courses (Ex: 121, 629, 410, etc)" %>
+      <%= form.label :prev_course, "Previously Taken Courses at TAMU (Ex: 121, 629, 410, etc)" %>
       <%= form.text_field :prev_course %>
     </div>
 
@@ -62,12 +62,12 @@
     </div>
 
     <div class="full-width">
-      <%= form.label :prev_ta, "Which Courses Have You TA’d for Previously?  (Ex: 121, 629, 410, etc)" %>
+      <%= form.label :prev_ta, "Which Courses Have You TA’d for Previously at TAMU?  (Ex: 121, 629, 410, etc)" %>
       <%= form.text_field :prev_ta %>
     </div>
 
      <div class="full-width">
-      <%= form.label :advisor, "Who is Your Advisor?" %>
+      <%= form.label :advisor, "Who is Your Advisor? (None of the above at bottom)" %>
       <%= form.select :advisor,
         Advisor.order(:name).map { |a| ["#{a.name} (#{a.email})", "#{a.name} (#{a.email})"] }+
         [["None of the above", "None of the above"]],

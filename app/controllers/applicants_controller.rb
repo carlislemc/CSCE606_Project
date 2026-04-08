@@ -87,6 +87,38 @@ class ApplicantsController < ApplicationController
       cert: applicant.cert } }
   end
 
+
+  # Search for applicants by course number
+  def search_course
+    term = params[:term].to_s.strip
+    applicants = if term.present?
+                   Applicant.where(
+                     "CAST(choice_1 AS TEXT) LIKE ? OR CAST(choice_2 AS TEXT) LIKE ? OR " +
+                     "CAST(choice_3 AS TEXT) LIKE ? OR CAST(choice_4 AS TEXT) LIKE ? OR " +
+                     "CAST(choice_5 AS TEXT) LIKE ? OR CAST(choice_6 AS TEXT) LIKE ? OR " +
+                     "CAST(choice_7 AS TEXT) LIKE ? OR CAST(choice_8 AS TEXT) LIKE ? OR " +
+                     "CAST(choice_9 AS TEXT) LIKE ? OR CAST(choice_10 AS TEXT) LIKE ?",
+                     "%#{term}%", "%#{term}%", "%#{term}%", "%#{term}%", "%#{term}%",
+                     "%#{term}%", "%#{term}%", "%#{term}%", "%#{term}%", "%#{term}%"
+                   ).limit(10)
+    else
+                   Applicant.limit(10)
+    end
+
+    render json: applicants.map { |applicant| {
+      id: applicant.id,
+      text: "#{applicant.name} (#{applicant.email})",
+      name: applicant.name,
+      email: applicant.email,
+      degree: applicant.degree,
+      uin: applicant.uin,
+      number: applicant.number,
+      citizenship: applicant.citizenship,
+      hours: applicant.hours,
+      prev_ta: applicant.prev_ta,
+      cert: applicant.cert } }
+  end
+
   # GET /applicants/1 or /applicants/1.json
   def show
   end
