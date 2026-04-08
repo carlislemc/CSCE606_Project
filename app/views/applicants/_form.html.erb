@@ -79,8 +79,10 @@
     <% (1..10).each do |i| %>
       <div>
         <%= form.label "choice_#{i}".to_sym, "Course Choice #{i}" %>
+        <% raw_choice = form.object.send("choice_#{i}").to_s %>
+        <% selected_course = sorted_courses.map(&:last).find { |cn| cn.to_s.split('/').map(&:strip).include?(raw_choice) } || raw_choice %>
         <%= form.select "choice_#{i}".to_sym,
-              options_for_select(sorted_courses, form.object.send("choice_#{i}")),
+              options_for_select(sorted_courses, selected_course),
               { include_blank: true },
               { class: "course-select" } %>
       </div>
