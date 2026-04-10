@@ -32,7 +32,7 @@
     <div style="display: flex; align-items: center; justify-content: space-between;">
       <h1><%= link_to "Applicants", root_path, class: "action-button" %></h1>
       <% if session[:role].to_s == "admin" %>
-        <h2>Applicants: <%= Applicant.count %> / <%= @total_jobs %></h2> 
+        <h2>Showing <%= @applicants.size %> applicants for <%= @total_jobs %> jobs</h2> 
       <% end %>
     </div>
 
