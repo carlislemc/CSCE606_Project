@@ -186,6 +186,7 @@ class ApplicantsController < ApplicationController
       @applicant.confirm = user.id
 
       respond_to do |format|
+        if @applicant.save
           if (TaMatch.exists? || SeniorGraderMatch.exists? || GraderMatch.exists?) && !@applicant.blacklisted?
             # Backup the applicant to the unassigned applicants CSV and model
             UnassignedApplicant.create(@applicant.attributes.except("id", "created_at", "updated_at", "confirm"))
