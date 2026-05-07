@@ -67,6 +67,7 @@
           <th>Instructor</th>
           <th>Instructor Email</th>
           <th>Student</th>
+          <th>Degree</th>
           <th>Student Email</th>
           <th>UIN</th>
           <th>Send Offer</th>
@@ -85,6 +86,7 @@
           <td><%= record.ins_name %></td>
           <td><%= record.ins_email %></td>
           <td><%= record.stu_name %></td>
+          <td><%= record.applicant&.degree || 'N/A' %></td>
           <td><%= record.stu_email %></td>
           <td><%= record.uin %></td>
           <td style="background-color: <%= record.assigned ?  'rgb(162, 246, 156)' : 'rgb(243, 169, 162)'  %>;">

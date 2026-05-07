@@ -7,18 +7,18 @@ class RecordsController < ApplicationController
     @table_name = params[:table]
     case @table_name
     when "grader_matches"
-      @records = GraderMatch.all
+      @records = GraderMatch.includes(:applicant).all
     when "recommendations"
       @records = Recommendation.all
     when "senior_grader_matches"
-      @records = SeniorGraderMatch.all
+      @records = SeniorGraderMatch.includes(:applicant).all
     when "ta_matches"
-      @records = TaMatch.all
+      @records = TaMatch.includes(:applicant).all
     else
       @records = []
     end
     @records = @records.sort_by do |r|
-      [r.confirm ? 0 : 1,r.assigned ? 0 : 1,r.course_number.to_i]
+      [r.confirm ? 0 : 1, r.assigned ? 0 : 1, r.course_number.to_i, r.section.to_i]
     end 
     @ta = Course.sum(:ta).to_i
     @senior_grader = Course.sum(:senior_grader).to_i
