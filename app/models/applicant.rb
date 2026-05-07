@@ -89,7 +89,7 @@ class Applicant < ApplicationRecord
   end
   
   def blacklisted?
-    Blacklist.exists?(["LOWER(student_email) = ?", email.downcase])
+    Blacklist.exists?(["LOWER(student_email) = ? OR LOWER(student_name) = ?", email.to_s.downcase, name.to_s.downcase])
   end
 
   def check_duplicates

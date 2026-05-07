@@ -178,11 +178,7 @@ class ApplicantsController < ApplicationController
       session_email = session[:email]
       session_user = session[:user]
 
-      is_blacklisted = Blacklist.exists?(
-        ["LOWER(student_email) = ?", session_email.to_s.downcase]
-      )
-
-      final_name = is_blacklisted ? "*#{session_user}" : session_user
+      final_name = session_user
        
       @applicant = Applicant.new(modified_params)
       @applicant.email = session_email
@@ -190,17 +186,9 @@ class ApplicantsController < ApplicationController
       @applicant.confirm = user.id
 
       respond_to do |format|
-        if @applicant.save
-          blacklist_entry = Blacklist.find_by(
-            "LOWER(student_name) = ? AND LOWER(student_email) = ?",
-            @applicant.name.downcase,
-            @applicant.email.downcase
-          )
-          if TaMatch.exists? || SeniorGraderMatch.exists? || GraderMatch.exists?
-            if !blacklist_entry.present? &&  !@applicant.name.strip.downcase.start_with?("*")
-              # Backup the applicant to the unassigned applicants CSV and model
-              UnassignedApplicant.create(@applicant.attributes.except("id", "created_at", "updated_at", "confirm"))
-            end
+          if (TaMatch.exists? || SeniorGraderMatch.exists? || GraderMatch.exists?) && !@applicant.blacklisted?
+            # Backup the applicant to the unassigned applicants CSV and model
+            UnassignedApplicant.create(@applicant.attributes.except("id", "created_at", "updated_at", "confirm"))
           end
           format.html { redirect_to @applicant, notice: "Application submitted successfully." }
           format.json { render :show, status: :created, location: @applicant }
