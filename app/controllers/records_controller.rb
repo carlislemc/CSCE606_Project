@@ -53,29 +53,39 @@ class RecordsController < ApplicationController
       return
     end
 
-    from_record = model.find(params[:from_id])
-    to_record = model.find(params[:to_id])
+    model.transaction do
+      from_record = model.find(params[:from_id])
+      to_record = model.find(params[:to_id])
 
-    # Swap student fields
-    from_student_data = {
-      stu_name: from_record.stu_name,
-      stu_email: from_record.stu_email,
-      uin: from_record.uin
-    }
+      # Capture original data
+      from_data = {
+        stu_name: from_record.stu_name,
+        stu_email: from_record.stu_email,
+        uin: from_record.uin
+      }
 
-    to_student_data = {
-      stu_name: to_record.stu_name,
-      stu_email: to_record.stu_email,
-      uin: to_record.uin
-    }
+      to_data = {
+        stu_name: to_record.stu_name,
+        stu_email: to_record.stu_email,
+        uin: to_record.uin
+      }
 
-    # Perform swap without resetting assigned/confirm status
-    from_record.update!(to_student_data)
-    to_record.update!(from_student_data)
+      # Step 1: Temporarily clear UIN on the first record to avoid unique constraint violation
+      # We use update_columns to skip validations/callbacks for this temporary state
+      from_record.update_columns(uin: nil)
+
+      # Step 2: Update the second record with the first record's data
+      to_record.update!(from_data)
+
+      # Step 3: Update the first record with the second record's data
+      from_record.update!(to_data)
+    end
 
     redirect_to all_records_path(table: table), notice: "Assignments swapped successfully!"
   rescue ActiveRecord::RecordNotFound
     redirect_back fallback_location: root_path, alert: "One or both records not found."
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::StatementInvalid => e
+    redirect_back fallback_location: root_path, alert: "Swap failed: #{e.message}"
   end
 
   # Gets the records from the database
