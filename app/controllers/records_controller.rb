@@ -54,10 +54,11 @@ class RecordsController < ApplicationController
     end
 
     model.transaction do
-      from_record = model.find(params[:from_id])
-      to_record = model.find(params[:to_id])
+      # Lock records to prevent concurrent modifications
+      from_record = model.lock.find(params[:from_id])
+      to_record = model.lock.find(params[:to_id])
 
-      # Capture original data
+      # Capture original student data
       from_data = {
         stu_name: from_record.stu_name,
         stu_email: from_record.stu_email,
@@ -70,14 +71,16 @@ class RecordsController < ApplicationController
         uin: to_record.uin
       }
 
-      # Step 1: Temporarily clear UIN on the first record to avoid unique constraint violation
-      # We use update_columns to skip validations/callbacks for this temporary state
-      from_record.update_columns(uin: nil)
+      # Step 1: Temporarily set the first record's UIN to a unique string
+      # to avoid the UNIQUE constraint violation during the swap process.
+      # SQLite checks unique constraints immediately.
+      temp_uin = "SWAP-TEMP-#{from_record.id}-#{Time.now.to_f}"
+      from_record.update_columns(uin: temp_uin)
 
-      # Step 2: Update the second record with the first record's data
+      # Step 2: Update the second record with the first record's original data
       to_record.update!(from_data)
 
-      # Step 3: Update the first record with the second record's data
+      # Step 3: Update the first record with the second record's original data
       from_record.update!(to_data)
     end
 
