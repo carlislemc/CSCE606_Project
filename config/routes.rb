@@ -24,6 +24,7 @@ Rails.application.routes.draw do
 
   # Records
   get "all_records", to: "records#index"
+  get "records/export", to: "records#export", as: "export_records"
   resources :records, only: [ :destroy ]
   post "records/destroy_unconfirmed", to: "records#destroy_unconfirmed", as: "destroy_unconfirmed_assignments"
   post "toggle_assignment", to: "records#toggle_assignment", as: :toggle_assignment

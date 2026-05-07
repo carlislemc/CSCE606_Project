@@ -50,11 +50,12 @@
                   method: :post, 
                   class: "btn btn-warning",
                   onclick: "return confirm('Warning!! This will reset the confirmation of all assignments');"  %>
-    <%= button_to "Delete All Unconfirmed Assignments", 
-                  destroy_unconfirmed_assignments_path(type: @table_name), 
-                  method: :post, 
-                  onclick: "return confirm('Warning!! This action will remove any unconfirmed assignments.');", 
-                  class: "btn btn-danger" %>
+      <%= button_to "Delete All Unconfirmed Assignments", 
+                    destroy_unconfirmed_assignments_path(type: @table_name), 
+                    method: :post, 
+                    onclick: "return confirm('Warning!! This action will remove any unconfirmed assignments.');", 
+                    class: "btn btn-danger" %>
+      <%= link_to "Download CSV", export_records_path(table: @table_name), class: "btn btn-success" %>
     </div>
     <div style="max-height: 800px; overflow-y: auto;">
       <table class="styled-table" style="min-width: 800px;" >

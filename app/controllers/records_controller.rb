@@ -1,7 +1,44 @@
-# frozen_string_literal: true
+require 'csv'
 
 class RecordsController < ApplicationController
   before_action :authorize_admin!, except: [:destroy]
+  
+  def export
+    @table_name = params[:table]
+    model = case @table_name
+            when "grader_matches" then GraderMatch
+            when "senior_grader_matches" then SeniorGraderMatch
+            when "ta_matches" then TaMatch
+            else nil
+            end
+
+    if model.nil?
+      redirect_back fallback_location: root_path, alert: "Cannot export this table."
+      return
+    end
+
+    records = model.includes(:applicant).all
+    
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << ["Course Number", "Section", "Instructor", "Instructor Email", "Student", "Degree", "Student Email", "UIN", "Advisor"]
+      records.each do |record|
+        csv << [
+          record.course_number,
+          record.section,
+          record.ins_name,
+          record.ins_email,
+          record.stu_name,
+          record.applicant&.degree || "N/A",
+          record.stu_email,
+          record.uin,
+          record.applicant&.advisor || "N/A"
+        ]
+      end
+    end
+
+    send_data csv_data, filename: "#{@table_name}_#{Date.today}.csv", type: "text/csv"
+  end
+
   # Gets the records from the database
   def index
     @table_name = params[:table]
