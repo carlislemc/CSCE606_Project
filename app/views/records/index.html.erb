@@ -24,6 +24,17 @@
 
   <div class="main-content-records">
     <p class="notice-text"><%= notice %></p>
+    <p class="alert-text"><%= alert %></p>
+
+<% if params[:swap_from_id].present? %>
+  <div class="alert alert-info" style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
+    <span>
+      <strong>Swapping:</strong> Select another student to swap with 
+      <strong><%= @records.find { |r| r.id.to_s == params[:swap_from_id] }&.stu_name %></strong>
+    </span>
+    <%= link_to "Cancel Swap", all_records_path(table: @table_name), class: "btn btn-warning" %>
+  </div>
+<% end %>
 
 <% if @table_name.present? %>
     <h1><%= @table_name.titleize %> Assignments</h1>
@@ -120,6 +131,18 @@
           </td>
           <td>
           <div class="button-group button-group--cta">
+            <% if params[:swap_from_id].present? %>
+              <% if params[:swap_from_id] == record.id.to_s %>
+                <span class="btn btn-secondary">Selected</span>
+              <% else %>
+                <%= button_to "Swap with this", 
+                    perform_swap_records_path(from_id: params[:swap_from_id], to_id: record.id, table: @table_name), 
+                    method: :post, 
+                    class: "btn btn-success" %>
+              <% end %>
+            <% else %>
+              <%= link_to "Swap", all_records_path(table: @table_name, swap_from_id: record.id), class: "btn btn-info" %>
+            <% end %>
             <%= link_to "Edit", edit_ta_assignment_path(record, file: @table_name, uin: record.uin), method: :get, class: 'btn btn-danger' %>
             <%= button_to "Delete", record_path(record, file: @table_name, uin: record.uin,), method: :delete, remote: true, class: 'btn btn--cta-secondary' %>
           </div>

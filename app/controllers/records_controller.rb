@@ -39,6 +39,45 @@ class RecordsController < ApplicationController
     send_data csv_data, filename: "#{@table_name}_#{Date.today}.csv", type: "text/csv"
   end
 
+  def perform_swap
+    table = params[:table]
+    model = case table
+            when "grader_matches" then GraderMatch
+            when "senior_grader_matches" then SeniorGraderMatch
+            when "ta_matches" then TaMatch
+            else nil
+            end
+
+    if model.nil?
+      redirect_back fallback_location: root_path, alert: "Cannot swap in this table."
+      return
+    end
+
+    from_record = model.find(params[:from_id])
+    to_record = model.find(params[:to_id])
+
+    # Swap student fields
+    from_student_data = {
+      stu_name: from_record.stu_name,
+      stu_email: from_record.stu_email,
+      uin: from_record.uin
+    }
+
+    to_student_data = {
+      stu_name: to_record.stu_name,
+      stu_email: to_record.stu_email,
+      uin: to_record.uin
+    }
+
+    # Perform swap without resetting assigned/confirm status
+    from_record.update!(to_student_data)
+    to_record.update!(from_student_data)
+
+    redirect_to all_records_path(table: table), notice: "Assignments swapped successfully!"
+  rescue ActiveRecord::RecordNotFound
+    redirect_back fallback_location: root_path, alert: "One or both records not found."
+  end
+
   # Gets the records from the database
   def index
     @table_name = params[:table]
