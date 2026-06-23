@@ -84,6 +84,7 @@
          <div class="button-container-tables">
           <%= button_to 'Delete All CSV Files and Models', delete_all_csvs_path, method: :delete, class: 'btn btn--danger', onclick: "return confirm('Are you sure? This will reset all assignments.');" %>
           <%= button_to 'Calibrate Unassigned Applicants', calibrate_unassigned_applicants_path, method: :get, class: 'btn btn--danger', onclick: "return confirm('Are you sure? This will re-calibrate the unassigned students.');" %>
+            <%= button_to 'Rebuild New Needs CSV', rebuild_new_needs_path, method: :post, class: 'btn btn--danger', onclick: "return confirm('Rebuild New_Needs.csv from current course and assignment data?');" %>
         </div>
         <div>
           <%= link_to "Back", ta_assignments_new_path || root_path, class: "action-button" %>

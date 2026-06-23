@@ -40,12 +40,14 @@
       <%= search_form_for @q, url: applicants_path, method: :get do |f| %>
         <div class="search-container">
           <%= f.label :name_or_email_or_uin_text_or_degree_or_course_choices_cont, "Search for Applicant" %>
-          <%= f.text_field :name_or_email_or_uin_text_or_degree_or_course_choices_cont, placeholder: "Enter Name, Email, UIN, Degree, Course", class: "search-input" %>
+          <%= f.text_field :name_or_email_or_uin_text_or_degree_or_course_choices_cont, placeholder: "Enter Name, Email, UIN, Degree, or Course Number", class: "search-input" %>
           <%= f.submit "Search", class: "search-btn" %>
           <%= link_to "Clear", applicants_path, class: "search-btn" %>
         </div>
       <% end %>
     </div>
+
+    <p class="notice-text">Showing <%= pluralize(@applicants.size, "applicant") %></p>
 
     <div style="max-height: 800px; overflow-y: auto; overflow-x: auto;">
       <table class="styled-table" style="min-width: 2000px;">

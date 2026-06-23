@@ -67,7 +67,7 @@
     </div>
 
      <div class="full-width">
-      <%= form.label :advisor, "Who is Your Advisor? (None of the above at bottom)" %>
+      <%= form.label :advisor, "Who is Your Advisor? (None of the above is at bottom of list)" %>
       <%= form.select :advisor,
         Advisor.order(:name).map { |a| ["#{a.name} (#{a.email})", "#{a.name} (#{a.email})"] }+
         [["None of the above", "None of the above"]],

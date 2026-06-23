@@ -87,7 +87,6 @@ class ApplicantsController < ApplicationController
       cert: applicant.cert } }
   end
 
-
   # Search for applicants by course number
   def search_course
     term = params[:term].to_s.strip
