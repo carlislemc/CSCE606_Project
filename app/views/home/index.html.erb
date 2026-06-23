@@ -58,7 +58,14 @@
           <%= link_to "Assign TA/Grader", ta_assignments_new_path, class: "action-button" %> 
           <%= link_to "View Applicants", applicants_path, class: "action-button" %>
           <%= link_to "View Classes", courses_path, class: "action-button" %>
-          <%= link_to "View Withdrawal Requests", withdrawal_requests_path, class: "action-button" %>
+          <%= link_to withdrawal_requests_path, class: "action-button" do %>
+            View Withdrawal Requests
+            <% if @new_withdrawals_count.to_i > 0 %>
+              <span style="background: #b22222; color: #fff; padding: 2px 8px; border-radius: 999px; margin-left: 8px; font-weight: bold;">
+                <%= @new_withdrawals_count %> new
+              </span>
+            <% end %>
+          <% end %>
           <%= link_to "View All Recommendations", recommendation_view_path, class: "action-button" %> 
           <%= link_to "View Blacklisted Students", blacklists_path, class: "action-button" %>
           <%= link_to "Send Emails", new_email_path, class: "action-button" %>

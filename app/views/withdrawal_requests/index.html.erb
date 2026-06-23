@@ -16,27 +16,57 @@
   <div class="main-content">
     <h1>Withdrawal Requests</h1>
 
+    <div style="display: flex; gap: 10px; margin-bottom: 16px; flex-wrap: wrap; align-items: center;">
+      <%= link_to "Open (#{@open_count})", withdrawal_requests_path(status: "open"), class: "action-button" %>
+      <%= link_to "New (#{@new_count})", withdrawal_requests_path(status: "new"), class: "action-button" %>
+      <%= link_to "Acknowledged", withdrawal_requests_path(status: "acknowledged"), class: "action-button" %>
+      <%= link_to "Resolved", withdrawal_requests_path(status: "resolved"), class: "action-button" %>
+    </div>
+
     <div style="max-height: 800px; overflow-y: auto;">
       <table class="styled-table">
         <thead>
           <tr>
+            <th>Status</th>
             <th>Course Number</th>
             <th>Section ID</th>
             <th>Instructor Name</th>
             <th>Instructor Email</th>
             <th>Student Name</th>
             <th>Student Email</th>
+            <th>Created</th>
+            <th>Acknowledged</th>
+            <th>Resolved</th>
+            <th>Resolved By</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           <% @withdrawal_requests.each do |request| %>
-            <tr>
+            <tr style="<%= request.status == 'new' ? 'background-color: #fff4e5;' : '' %>">
+              <td>
+                <%= request.status.titleize %>
+              </td>
               <td><%= request.course_number %></td>
               <td><%= request.section_id %></td>
               <td><%= request.instructor_name %></td>
               <td><%= request.instructor_email %></td>
               <td><%= request.student_name %></td>
               <td><%= request.student_email %></td>
+              <td><%= request.created_at&.strftime("%Y-%m-%d %H:%M") %></td>
+              <td><%= request.acknowledged_at&.strftime("%Y-%m-%d %H:%M") || "-" %></td>
+              <td><%= request.resolved_at&.strftime("%Y-%m-%d %H:%M") || "-" %></td>
+              <td><%= request.resolved_by.presence || "-" %></td>
+              <td>
+                <div style="display: flex; gap: 8px;">
+                  <% if request.status == "new" %>
+                    <%= button_to "Acknowledge", acknowledge_withdrawal_request_path(request, status: @status_filter), method: :patch, class: "btn btn-warning" %>
+                  <% end %>
+                  <% unless request.status == "resolved" %>
+                    <%= button_to "Resolve", resolve_withdrawal_request_path(request, status: @status_filter), method: :patch, class: "btn btn-success" %>
+                  <% end %>
+                </div>
+              </td>
             </tr>
           <% end %>
         </tbody>

@@ -6,7 +6,7 @@ require "csv"
 require "fileutils"
 
 class WithdrawalRequestsController < ApplicationController
-  before_action :authorize_admin!,only: [:index,:clear]
+  before_action :authorize_admin!,only: [:index, :clear, :acknowledge, :resolve]
   # This method is used to assign a role based on is the user has been assigned a role
   def new
     @withdrawal_request = WithdrawalRequest.new
@@ -66,7 +66,44 @@ class WithdrawalRequestsController < ApplicationController
 
 
   def index
-    @withdrawal_requests = WithdrawalRequest.all
+    @status_filter = params[:status].presence || "open"
+    @new_count = WithdrawalRequest.new_items.count
+    @open_count = WithdrawalRequest.open_items.count
+
+    @withdrawal_requests = case @status_filter
+    when "new"
+      WithdrawalRequest.new_items
+    when "acknowledged"
+      WithdrawalRequest.where(status: "acknowledged")
+    when "resolved"
+      WithdrawalRequest.where(status: "resolved")
+    else
+      WithdrawalRequest.open_items
+    end.recent_first
+  end
+
+  def acknowledge
+    request = WithdrawalRequest.find(params[:id])
+
+    request.update!(
+      status: "acknowledged",
+      acknowledged_at: request.acknowledged_at || Time.current
+    )
+
+    redirect_to withdrawal_requests_path(status: params[:status].presence || "open"), notice: "Withdrawal request acknowledged."
+  end
+
+  def resolve
+    request = WithdrawalRequest.find(params[:id])
+
+    request.update!(
+      status: "resolved",
+      acknowledged_at: request.acknowledged_at || Time.current,
+      resolved_at: Time.current,
+      resolved_by: session[:email]
+    )
+
+    redirect_to withdrawal_requests_path(status: params[:status].presence || "open"), notice: "Withdrawal request resolved."
   end
 
   private

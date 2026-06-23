@@ -38,6 +38,14 @@
 
 <% if @table_name.present? %>
     <h1><%= @table_name.titleize %> Assignments</h1>
+
+    <% if @open_withdrawals_count.to_i > 0 %>
+      <div style="background: #fff4e5; border: 1px solid #f0ad4e; color: #7a4f01; padding: 12px; border-radius: 6px; margin-bottom: 16px;">
+        <strong>Withdrawal Warning:</strong>
+        <%= @open_withdrawals_count %> open withdrawal request(s) match students in this table.
+        <%= link_to "Review requests", withdrawal_requests_path(status: "open"), class: "btn btn-warning", style: "margin-left: 10px;" %>
+      </div>
+    <% end %>
     
   <div style="display: flex; align-items: center; justify-content: space-between;">
     <%= link_to "Back", view_csv_path, class: "aux-link aux-text-primary", style: "text-decoration: none;",class: 'btn btn--primary'%>
@@ -81,6 +89,7 @@
           <th>Student</th>
           <th>Degree</th>
           <th>Student Email</th>
+          <th>Withdrawal</th>
           <th>UIN</th>
           <th>Send Offer</th>
           <th>Confirmation</th>
@@ -92,7 +101,9 @@
     </thead>
     <tbody>
       <% @records.each do |record| %>
-        <tr id="row_<%= record.uin %>">
+        <% email_key = record.stu_email.to_s.downcase.strip %>
+        <% matching_withdrawals = @open_withdrawals_by_email[email_key] || [] %>
+        <tr id="row_<%= record.uin %>" style="<%= matching_withdrawals.any? ? 'background-color: #fff8e8;' : '' %>">
           <td><%= record.course_number %></td>
           <td><%= record.section %></td>
           <td><%= record.ins_name %></td>
@@ -100,6 +111,15 @@
           <td><%= record.stu_name %></td>
           <td><%= record.applicant&.degree || 'N/A' %></td>
           <td><%= record.stu_email %></td>
+          <td>
+            <% if matching_withdrawals.any? %>
+              <span style="background: #b22222; color: #fff; padding: 2px 8px; border-radius: 999px; font-size: 12px; font-weight: bold;">
+                OPEN (<%= matching_withdrawals.size %>)
+              </span>
+            <% else %>
+              <span style="color: #666;">None</span>
+            <% end %>
+          </td>
           <td><%= record.uin %></td>
           <td style="background-color: <%= record.assigned ?  'rgb(162, 246, 156)' : 'rgb(243, 169, 162)'  %>;">
            <% if record.assigned %>
