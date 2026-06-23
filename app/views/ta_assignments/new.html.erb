@@ -49,8 +49,11 @@
                           class: "aux-button aux-button-primary aux-text-lg aux-font-bold aux-px-6 aux-py-3 aux-w-1/2",
                           style: "margin-left: 18%;",
                           onclick: "return confirm('Warning!! This action will reset any previous assignments.');" %>
-                          
-                    <% if File.exist?(Rails.root.join("app/Charizard/util/public/output", "New_Needs.csv")) %>
+
+                    <% new_needs_path = Rails.root.join("app/Charizard/util/public/output", "New_Needs.csv") %>
+                    <% has_pending_new_needs = File.exist?(new_needs_path) && File.foreach(new_needs_path).drop(1).any? { |line| line.strip.present? } %>
+
+                    <% if has_pending_new_needs %>
                       <%= button_to "Re-run Auto-Assign", reprocess_csvs_path, method: :post,
                             class: "aux-button aux-button-primary aux-text-lg aux-font-bold aux-px-6 aux-py-3 aux-w-1/2",
                             style: "margin-left: 18%;",
@@ -59,7 +62,7 @@
                       <%= button_to "Re-run Auto-Assign", "#", method: :post,
                         class: "aux-button aux-button-primary aux-text-lg aux-font-bold aux-px-6 aux-py-3 aux-w-1/2",
                         style: "margin-left: 18%; color: gray;",
-                        onclick: "alert('Auto-Assign is disabled because there is no file available.'); return false;" %>
+                        onclick: "alert('Auto-Assign is disabled because there are no pending needs.'); return false;" %>
                     <% end %>
                   </div>
                 </div>

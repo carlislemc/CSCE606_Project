@@ -5,6 +5,7 @@ class CoursesController < ApplicationController
   skip_before_action :require_login, if: -> { Rails.env.test? }
   before_action :authorize_admin!, only: [:index, :create, :update, :destroy, :import, :clear]
   require "csv"
+  include NewNeedsSync
 
   # will sort the courses by the thier columns
   def index
@@ -49,33 +50,7 @@ class CoursesController < ApplicationController
     respond_to do |format|
       if @course.save
         if TaMatch.count > 0 || GraderMatch.count > 0 || SeniorGraderMatch.count > 0
-          # Path to the CSV file
-          new_needs_path = Rails.root.join("app", "Charizard", "util", "public", "output", "New_Needs.csv")
-
-          # Define fixed headers for the CSV file
-          column_order = [ "Course_Name", "Course_Number", "Section", "Instructor", "Faculty_Email",
-                           "TA", "Senior_Grader", "Grader", "Professor Pre-Reqs" ]
-
-          # Check if headers need to be written (write headers only if file doesn't exist)
-          write_headers = !File.exist?(new_needs_path)
-
-          # Prepare row values
-          row_values = [
-            @course.course_name,
-            @course.course_number,
-            @course.section,
-            @course.instructor,
-            @course.faculty_email,
-            @course.ta,
-            @course.senior_grader,
-            @course.grader,
-            @course.pre_reqs.presence || "N/A"
-          ]
-
-          # Append to the CSV file
-          CSV.open(new_needs_path, "a", headers: column_order, write_headers: write_headers) do |csv|
-            csv << row_values
-          end
+          rebuild_new_needs_csv
         end
         format.html { redirect_to courses_path, notice: "Course was successfully created." }
         format.json { render :show, status: :created, location: @course }
@@ -146,8 +121,8 @@ class CoursesController < ApplicationController
       end
     end
 
-    remove_course_from_new_needs_csv(course_number, section)
     @course.destroy
+    rebuild_new_needs_csv if File.exist?(Rails.root.join("app", "Charizard", "util", "public", "output", "New_Needs.csv"))
     respond_to do |format|
       format.js
       format.html { redirect_to courses_path, notice: "Course was successfully deleted." }
@@ -220,35 +195,6 @@ class CoursesController < ApplicationController
     return unless applicant
 
     UnassignedApplicant.create(applicant.attributes.except("id", "created_at", "updated_at", "confirm"))
-  end
-
-  def remove_course_from_new_needs_csv(course_number, section)
-    path = Rails.root.join("app", "Charizard", "util", "public", "output", "New_Needs.csv")
-    return unless File.exist?(path)
-
-    column_order = [ "Course_Name", "Course_Number", "Section", "Instructor", "Faculty_Email", "TA", "Senior_Grader", "Grader", "Professor Pre-Reqs" ]
-
-    data = CSV.read(path, headers: true).map(&:to_h)
-    Rails.logger.debug "Course Number: #{course_number}, Section: #{section}"
-
-    # Filter out matching rows
-    filtered_data = data.reject do |row|
-      row_course_number = row["Course_Number"].to_s.strip
-      row_section = row["Section"].to_s.strip
-      if row_course_number == course_number.strip && row_section == section.strip
-        Rails.logger.debug "Removing row: #{row.inspect}"
-        true
-      else
-        false
-      end
-    end
-
-    # Rewrite the CSV with remaining rows
-    CSV.open(path, "w", headers: column_order, write_headers: true) do |csv|
-      filtered_data.each do |row|
-        csv << row.values_at(*column_order)
-      end
-    end
   end
 
   private

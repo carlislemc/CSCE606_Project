@@ -32,20 +32,22 @@
     <div style="display: flex; align-items: center; justify-content: space-between;">
       <h1><%= link_to "Applicants", root_path, class: "action-button" %></h1>
       <% if session[:role].to_s == "admin" %>
-        <h2>Applicants: <%= Applicant.count %> / <%= @total_jobs %></h2> 
+        <h2>Applicants: <%= @applicants.size %> / <%= @total_jobs %></h2>
       <% end %>
     </div>
 
     <div class="search search--slim">
       <%= search_form_for @q, url: applicants_path, method: :get do |f| %>
         <div class="search-container">
-          <%= f.label :name_or_email_or_uin_text_or_degree_cont, "Search for Applicant" %>
-          <%= f.text_field :name_or_email_or_uin_text_or_degree_cont, placeholder: "Enter Name, Email, UIN, Degree", class: "search-input" %>
+          <%= f.label :name_or_email_or_uin_text_or_degree_or_course_choices_cont, "Search for Applicant" %>
+          <%= f.text_field :name_or_email_or_uin_text_or_degree_or_course_choices_cont, placeholder: "Enter Name, Email, UIN, Degree, or Course Number", class: "search-input" %>
           <%= f.submit "Search", class: "search-btn" %>
           <%= link_to "Clear", applicants_path, class: "search-btn" %>
         </div>
       <% end %>
     </div>
+
+    <p class="notice-text">Showing <%= pluralize(@applicants.size, "applicant") %></p>
 
     <div style="max-height: 800px; overflow-y: auto; overflow-x: auto;">
       <table class="styled-table" style="min-width: 2000px;">

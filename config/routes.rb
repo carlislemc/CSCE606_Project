@@ -52,6 +52,7 @@ Rails.application.routes.draw do
       get :search
       get :search_email
       get :search_uin
+      get :search_course
     end
   end
  
@@ -90,6 +91,7 @@ Rails.application.routes.draw do
   # TA assignment
   post "ta_assignments/process_csvs", to: "ta_assignments#process_csvs", as: "process_csvs"
   get "ta_assignments/view_csv", to: "ta_assignments#view_csv", as: "view_csv"
+  post "ta_assignments/rebuild_new_needs", to: "ta_assignments#rebuild_new_needs", as: "rebuild_new_needs"
   post "import_csv", to: "csv_imports#import", as: "import_csv"
   delete "delete_all_csvs", to: "ta_assignments#delete_all_csvs", as: "delete_all_csvs"
 

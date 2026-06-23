@@ -2,6 +2,7 @@
 
 class RecordsController < ApplicationController
   before_action :authorize_admin!, except: [:destroy]
+  include NewNeedsSync
   # Gets the records from the database
   def index
     @table_name = params[:table]
@@ -113,13 +114,14 @@ class RecordsController < ApplicationController
         end
 
         backup_unassigned_applicant(model_record.uin)
-        update_new_needs_csv(file_name, model_record.course_number, model_record.section, model_record.ins_email)
 
         create_recommendation(model_record)
         model_record.destroy
         Rails.logger.debug "Record with UIN #{model_record.uin} destroyed."
 
       end
+
+      rebuild_new_needs_csv
 
 
       flash[:notice] = "All unconfirmed assignments were deleted and processed."
@@ -162,8 +164,8 @@ class RecordsController < ApplicationController
       end
 
       backup_unassigned_applicant(@role.uin)
-      update_new_needs_csv(file_name, @role.course_number, @role.section, @role.ins_email)
       model_record.destroy
+      rebuild_new_needs_csv
       flash[:notice] = "Student record deleted. Class details saved separately."
 
       respond_to do |format|

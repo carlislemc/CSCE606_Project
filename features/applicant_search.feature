@@ -23,6 +23,16 @@ Feature: Applicant Search by Name or Email
     When I navigate to the applicant search page
     And I enter "bob@example.com" into the "Search for Applicant" field
     And I click the "Search" button
+    Then I should see "Showing 1 applicant"
     Then I should see the applicant "Bob Johnson"
     And I should not see the applicant "Alice Smith"
+    And I should not see the applicant "Carol Brown"
+
+  Scenario: Search with no matches
+    When I navigate to the applicant search page
+    And I enter "missing@example.com" into the "Search for Applicant" field
+    And I click the "Search" button
+    Then I should see "Showing 0 applicants"
+    And I should not see the applicant "Alice Smith"
+    And I should not see the applicant "Bob Johnson"
     And I should not see the applicant "Carol Brown"
