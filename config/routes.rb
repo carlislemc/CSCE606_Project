@@ -24,8 +24,6 @@ Rails.application.routes.draw do
 
   # Records
   get "all_records", to: "records#index"
-  get "records/export", to: "records#export", as: "export_records"
-  post "records/perform_swap", to: "records#perform_swap", as: "perform_swap_records"
   resources :records, only: [ :destroy ]
   post "records/destroy_unconfirmed", to: "records#destroy_unconfirmed", as: "destroy_unconfirmed_assignments"
   post "toggle_assignment", to: "records#toggle_assignment", as: :toggle_assignment
@@ -65,7 +63,6 @@ Rails.application.routes.draw do
       get :search
       get :search_email
       get :search_uin
-      get :search_course
     end
   end
 
@@ -137,6 +134,12 @@ Rails.application.routes.draw do
     collection do
       delete :clear
     end
+    member do
+      patch :acknowledge
+      patch :resolve
+      post :acknowledge
+      post :resolve
+    end
   end
 
   # post 'toggle_assignment', to: 'withdrawal_requests#toggle_assignment', as: :toggle_assignment
@@ -144,12 +147,6 @@ Rails.application.routes.draw do
   # post 'revoke_assignment', to: 'withdrawal_requests#revoke_assignment', as: :revoke_assignment
   # post 'mass_confirm', to: 'withdrawal_requests#mass_confirm', as: :mass_confirm
   # post 'mass_toggle_assignment', to: 'withdrawal_requests#mass_toggle_assignment', as: :mass_toggle_assignment
-
-  resources :withdrawal_requests, only: [ :new, :create, :index, :show ] do
-    collection do
-      delete :clear
-    end
-  end
 
   get "ta_assignments#export_final_csv", to: "ta_assignments#export_final_csv", as: "export_final_csv"
 
