@@ -24,6 +24,8 @@ Rails.application.routes.draw do
 
   # Records
   get "all_records", to: "records#index"
+  get "records/export", to: "records#export", as: "export_records"
+  post "records/perform_swap", to: "records#perform_swap", as: "perform_swap_records"
   resources :records, only: [ :destroy ]
   post "records/destroy_unconfirmed", to: "records#destroy_unconfirmed", as: "destroy_unconfirmed_assignments"
   post "toggle_assignment", to: "records#toggle_assignment", as: :toggle_assignment
@@ -63,6 +65,7 @@ Rails.application.routes.draw do
       get :search
       get :search_email
       get :search_uin
+      get :search_course
     end
   end
 

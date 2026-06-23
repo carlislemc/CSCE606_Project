@@ -24,6 +24,17 @@
 
   <div class="main-content-records">
     <p class="notice-text"><%= notice %></p>
+    <p class="alert-text"><%= alert %></p>
+
+<% if params[:swap_from_id].present? %>
+  <div class="alert alert-info" style="margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between;">
+    <span>
+      <strong>Swapping:</strong> Select another student to swap with 
+      <strong><%= @records.find { |r| r.id.to_s == params[:swap_from_id] }&.stu_name %></strong>
+    </span>
+    <%= link_to "Cancel Swap", all_records_path(table: @table_name), class: "btn btn-warning" %>
+  </div>
+<% end %>
 
 <% if @table_name.present? %>
     <h1><%= @table_name.titleize %> Assignments</h1>
@@ -50,11 +61,12 @@
                   method: :post, 
                   class: "btn btn-warning",
                   onclick: "return confirm('Warning!! This will reset the confirmation of all assignments');"  %>
-    <%= button_to "Delete All Unconfirmed Assignments", 
-                  destroy_unconfirmed_assignments_path(type: @table_name), 
-                  method: :post, 
-                  onclick: "return confirm('Warning!! This action will remove any unconfirmed assignments.');", 
-                  class: "btn btn-danger" %>
+      <%= button_to "Delete All Unconfirmed Assignments", 
+                    destroy_unconfirmed_assignments_path(type: @table_name), 
+                    method: :post, 
+                    onclick: "return confirm('Warning!! This action will remove any unconfirmed assignments.');", 
+                    class: "btn btn-danger" %>
+      <%= link_to "Download CSV", export_records_path(table: @table_name), class: "btn btn-success" %>
     </div>
     <div style="max-height: 800px; overflow-y: auto;">
       <table class="styled-table" style="min-width: 800px;" >
@@ -67,6 +79,7 @@
           <th>Instructor</th>
           <th>Instructor Email</th>
           <th>Student</th>
+          <th>Degree</th>
           <th>Student Email</th>
           <th>UIN</th>
           <th>Send Offer</th>
@@ -85,6 +98,7 @@
           <td><%= record.ins_name %></td>
           <td><%= record.ins_email %></td>
           <td><%= record.stu_name %></td>
+          <td><%= record.applicant&.degree || 'N/A' %></td>
           <td><%= record.stu_email %></td>
           <td><%= record.uin %></td>
           <td style="background-color: <%= record.assigned ?  'rgb(162, 246, 156)' : 'rgb(243, 169, 162)'  %>;">
@@ -117,6 +131,18 @@
           </td>
           <td>
           <div class="button-group button-group--cta">
+            <% if params[:swap_from_id].present? %>
+              <% if params[:swap_from_id] == record.id.to_s %>
+                <span class="btn btn-secondary">Selected</span>
+              <% else %>
+                <%= button_to "Swap with this", 
+                    perform_swap_records_path(from_id: params[:swap_from_id], to_id: record.id, table: @table_name), 
+                    method: :post, 
+                    class: "btn btn-success" %>
+              <% end %>
+            <% else %>
+              <%= link_to "Swap", all_records_path(table: @table_name, swap_from_id: record.id), class: "btn btn-info" %>
+            <% end %>
             <%= link_to "Edit", edit_ta_assignment_path(record, file: @table_name, uin: record.uin), method: :get, class: 'btn btn-danger' %>
             <%= button_to "Delete", record_path(record, file: @table_name, uin: record.uin,), method: :delete, remote: true, class: 'btn btn--cta-secondary' %>
           </div>

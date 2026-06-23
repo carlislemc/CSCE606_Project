@@ -74,6 +74,14 @@ class Applicant < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     []
   end
+
+  ransacker :course_choices do
+    Arel.sql("CAST(choice_1 AS TEXT) || ',' || CAST(choice_2 AS TEXT) || ',' || CAST(choice_3 AS TEXT) || ',' || " +
+             "CAST(choice_4 AS TEXT) || ',' || CAST(choice_5 AS TEXT) || ',' || CAST(choice_6 AS TEXT) || ',' || " +
+             "CAST(choice_7 AS TEXT) || ',' || CAST(choice_8 AS TEXT) || ',' || CAST(choice_9 AS TEXT) || ',' || " +
+             "CAST(choice_10 AS TEXT)")
+  end
+
   def requires_advisor?
     degree.to_s.strip.casecmp("phd").zero?
   end
@@ -90,7 +98,7 @@ class Applicant < ApplicationRecord
   end
   
   def blacklisted?
-    Blacklist.exists?(["LOWER(student_email) = ?", email.downcase])
+    Blacklist.exists?(["LOWER(student_email) = ? OR LOWER(student_name) = ?", email.to_s.downcase, name.to_s.downcase])
   end
 
   def check_duplicates

@@ -1,25 +1,114 @@
-# frozen_string_literal: true
+require 'csv'
 
 class RecordsController < ApplicationController
   before_action :authorize_admin!, except: [:destroy]
   include NewNeedsSync
+  
+  def export
+    @table_name = params[:table]
+    model = case @table_name
+            when "grader_matches" then GraderMatch
+            when "senior_grader_matches" then SeniorGraderMatch
+            when "ta_matches" then TaMatch
+            else nil
+            end
+
+    if model.nil?
+      redirect_back fallback_location: root_path, alert: "Cannot export this table."
+      return
+    end
+
+    records = model.includes(:applicant).all
+    
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << ["Course Number", "Section", "Instructor", "Instructor Email", "Student", "Degree", "Student Email", "UIN", "Advisor"]
+      records.each do |record|
+        csv << [
+          record.course_number,
+          record.section,
+          record.ins_name,
+          record.ins_email,
+          record.stu_name,
+          record.applicant&.degree || "N/A",
+          record.stu_email,
+          record.uin,
+          record.applicant&.advisor || "N/A"
+        ]
+      end
+    end
+
+    send_data csv_data, filename: "#{@table_name}_#{Date.today}.csv", type: "text/csv"
+  end
+
+  def perform_swap
+    table = params[:table]
+    model = case table
+            when "grader_matches" then GraderMatch
+            when "senior_grader_matches" then SeniorGraderMatch
+            when "ta_matches" then TaMatch
+            else nil
+            end
+
+    if model.nil?
+      redirect_back fallback_location: root_path, alert: "Cannot swap in this table."
+      return
+    end
+
+    model.transaction do
+      # Lock records to prevent concurrent modifications
+      from_record = model.lock.find(params[:from_id])
+      to_record = model.lock.find(params[:to_id])
+
+      # Capture original student data
+      from_data = {
+        stu_name: from_record.stu_name,
+        stu_email: from_record.stu_email,
+        uin: from_record.uin
+      }
+
+      to_data = {
+        stu_name: to_record.stu_name,
+        stu_email: to_record.stu_email,
+        uin: to_record.uin
+      }
+
+      # Step 1: Temporarily set the first record's UIN to a unique string
+      # to avoid the UNIQUE constraint violation during the swap process.
+      # SQLite checks unique constraints immediately.
+      temp_uin = "SWAP-TEMP-#{from_record.id}-#{Time.now.to_f}"
+      from_record.update_columns(uin: temp_uin)
+
+      # Step 2: Update the second record with the first record's original data
+      to_record.update!(from_data)
+
+      # Step 3: Update the first record with the second record's original data
+      from_record.update!(to_data)
+    end
+
+    redirect_to all_records_path(table: table), notice: "Assignments swapped successfully!"
+  rescue ActiveRecord::RecordNotFound
+    redirect_back fallback_location: root_path, alert: "One or both records not found."
+  rescue ActiveRecord::RecordInvalid, ActiveRecord::StatementInvalid => e
+    redirect_back fallback_location: root_path, alert: "Swap failed: #{e.message}"
+  end
+
   # Gets the records from the database
   def index
     @table_name = params[:table]
     case @table_name
     when "grader_matches"
-      @records = GraderMatch.all
+      @records = GraderMatch.includes(:applicant).all
     when "recommendations"
       @records = Recommendation.all
     when "senior_grader_matches"
-      @records = SeniorGraderMatch.all
+      @records = SeniorGraderMatch.includes(:applicant).all
     when "ta_matches"
-      @records = TaMatch.all
+      @records = TaMatch.includes(:applicant).all
     else
       @records = []
     end
     @records = @records.sort_by do |r|
-      [r.confirm ? 0 : 1,r.assigned ? 0 : 1,r.course_number.to_i]
+      [r.confirm ? 0 : 1, r.assigned ? 0 : 1, r.course_number.to_i, r.section.to_i]
     end 
     @ta = Course.sum(:ta).to_i
     @senior_grader = Course.sum(:senior_grader).to_i

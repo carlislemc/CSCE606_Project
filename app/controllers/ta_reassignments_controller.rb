@@ -103,7 +103,8 @@ class TaReassignmentsController < ApplicationController
   end
 
   def generate_csv_apps(records)
-    blacklist_keys = Blacklist.all.map { |b| [b.student_name.downcase.strip, b.student_email.downcase.strip] }.to_set
+    blacklist_emails = Blacklist.pluck(:student_email).map { |e| e.to_s.downcase.strip }.to_set
+    blacklist_names = Blacklist.pluck(:student_name).map { |n| n.to_s.downcase.strip }.to_set
 
     seen_keys = Set.new
 
@@ -114,7 +115,7 @@ class TaReassignmentsController < ApplicationController
       email_key = record.email.to_s.strip.downcase
       uin_key = record.uin.to_i
 
-      next if name_key.start_with?("*") || blacklist_keys.include?([name_key, email_key])
+      next if blacklist_emails.include?(email_key) || blacklist_names.include?(name_key)
 
       dup_key = uin_key  # or [name_key, email_key]
 
@@ -159,7 +160,8 @@ class TaReassignmentsController < ApplicationController
     senior_grader_uins = SeniorGraderMatch.pluck(:uin).map(&:to_i)
     ta_uins = TaMatch.pluck(:uin).map(&:to_i)
 
-    blacklist_keys = Blacklist.all.map { |b| [b.student_name.downcase.strip, b.student_email.downcase.strip] }.to_set
+    blacklist_emails = Blacklist.pluck(:student_email).map { |e| e.to_s.downcase.strip }.to_set
+    blacklist_names = Blacklist.pluck(:student_name).map { |n| n.to_s.downcase.strip }.to_set
 
     seen_keys = Set.new
 
@@ -169,8 +171,9 @@ class TaReassignmentsController < ApplicationController
       uin_key = applicant.uin.to_i
     next if grader_uins.include?(applicant.uin) ||
               senior_grader_uins.include?(applicant.uin) ||
-              ta_uins.include?(applicant.uin) || name_key.start_with?("*") ||
-              blacklist_keys.include?([name_key, email_key])
+              ta_uins.include?(applicant.uin) ||
+              blacklist_emails.include?(email_key) ||
+              blacklist_names.include?(name_key)
 
     dup_key = uin_key  # or [name_key, email_key]
 
