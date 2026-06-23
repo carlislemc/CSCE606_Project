@@ -60,10 +60,10 @@
               <td>
                 <div style="display: flex; gap: 8px;">
                   <% if request.status == "new" %>
-                    <%= button_to "Acknowledge", acknowledge_withdrawal_request_path(request, status: @status_filter), method: :patch, class: "btn btn-warning" %>
+                    <%= button_to "Acknowledge", "/withdrawal_requests/#{request.id}/acknowledge?status=#{@status_filter}", method: :patch, class: "btn btn-warning" %>
                   <% end %>
                   <% unless request.status == "resolved" %>
-                    <%= button_to "Resolve", resolve_withdrawal_request_path(request, status: @status_filter), method: :patch, class: "btn btn-success" %>
+                    <%= button_to "Resolve", "/withdrawal_requests/#{request.id}/resolve?status=#{@status_filter}", method: :patch, class: "btn btn-success" %>
                   <% end %>
                 </div>
               </td>
