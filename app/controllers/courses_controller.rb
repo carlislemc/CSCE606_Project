@@ -85,41 +85,9 @@ class CoursesController < ApplicationController
   # Will delete a course
   def destroy
     @course = Course.find(params[:id])
-    course_number = @course.course_number
-    section = @course.section
-    input_courses = course_number.to_s.scan(/\d{3}/).map(&:strip)
-    input_sections = section.to_s.scan(/\d+/).map(&:strip)
-
-    TaMatch.find_each do |ta_match|
-      course_match = input_courses.any? { |cn| ta_match.course_number.to_s.include?(cn) }
-      section_match = input_sections.any? { |sn| ta_match.section.to_s.include?(sn) }
-
-      if course_match && section_match
-        add_to_modified_assignments(ta_match)
-        backup_unassigned_applicant(ta_match.uin)
-        ta_match.destroy
-      end
-    end
-
-    GraderMatch.where(course_number: input_courses, section: input_sections).find_each do |grader_match|
-      course_match = input_courses.any? { |cn| grader_match.course_number.to_s.include?(cn) }
-      section_match = input_sections.any? { |sn| grader_match.section.to_s.include?(sn) }
-      if course_match && section_match
-        add_to_modified_assignments(grader_match)
-        backup_unassigned_applicant(grader_match.uin)
-        grader_match.destroy
-      end
-    end
-    
-    SeniorGraderMatch.where(course_number: input_courses, section: input_sections).find_each do |senior_grader_match|
-      course_match = input_courses.any? { |cn| senior_grader_match.course_number.to_s.include?(cn) }
-      section_match = input_sections.any? { |sn| senior_grader_match.section.to_s.include?(sn) }
-      if course_match && section_match
-        add_to_modified_assignments(senior_grader_match)
-        backup_unassigned_applicant(senior_grader_match.uin)
-        senior_grader_match.destroy
-      end
-    end
+    delete_matches_for_course(TaMatch, @course)
+    delete_matches_for_course(GraderMatch, @course)
+    delete_matches_for_course(SeniorGraderMatch, @course)
 
     @course.destroy
     rebuild_new_needs_csv if File.exist?(Rails.root.join("app", "Charizard", "util", "public", "output", "New_Needs.csv"))
@@ -143,9 +111,9 @@ class CoursesController < ApplicationController
       # Process each row, cleaning up the values as well
       csv_data.each do |row|
         row = row.to_h.transform_keys { |key| key.strip.downcase }.transform_values { |value| value.strip if value.respond_to?(:strip) }
-        # Create the course with cleaned data
+        # Upsert by identity so repeated imports do not create duplicate classes.
         ta_value = row["ta?"] || row["ta"]
-        Course.create!(
+        course_attrs = {
           course_name: row["course_name"],
           course_number: row["course_number"],
           section: row["section"],
@@ -155,7 +123,8 @@ class CoursesController < ApplicationController
           senior_grader: row["senior_grader"].to_f,
           grader: row["grader"].to_f,
           pre_reqs: row["professor pre_reqs"]
-        )
+        }
+        upsert_course(course_attrs)
       end
       redirect_to courses_path, notice: "Courses imported successfully!"
     rescue StandardError => e
@@ -195,6 +164,31 @@ class CoursesController < ApplicationController
     return unless applicant
 
     UnassignedApplicant.create(applicant.attributes.except("id", "created_at", "updated_at", "confirm"))
+  end
+
+  def upsert_course(attrs)
+    identity = {
+      course_number: attrs[:course_number].to_s.strip,
+      section: attrs[:section].to_s.strip
+    }
+
+    course = Course.find_or_initialize_by(identity)
+    course.assign_attributes(attrs)
+    course.save!
+  end
+
+  def delete_matches_for_course(model_class, course)
+    target_course_number = course.course_number.to_s.strip.downcase
+    target_section = course.section.to_s.strip.downcase
+
+    model_class.find_each do |match|
+      next unless match.course_number.to_s.strip.downcase == target_course_number &&
+                  match.section.to_s.strip.downcase == target_section
+
+      add_to_modified_assignments(match)
+      backup_unassigned_applicant(match.uin)
+      match.destroy
+    end
   end
 
   private

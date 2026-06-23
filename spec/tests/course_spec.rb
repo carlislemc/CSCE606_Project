@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe CoursesController, type: :controller do
+  before do
+    session[:role] = "admin"
+  end
+
   describe "POST #create" do
     let(:valid_attributes) do
       {
@@ -56,7 +60,7 @@ RSpec.describe CoursesController, type: :controller do
 
   describe "DELETE #clear" do
     let!(:course1) { Course.create!(course_name: "CSCE 607", course_number: "606", section: "500", instructor: "Dr. Richey", faculty_email: "rrrr@tamu.edu") }
-    let!(:course2) { Course.create!(course_name: "CSCE 607", course_number: "606", section: "500", instructor: "Dr.richey", faculty_email: "rrrcr@tamu.edu") }
+    let!(:course2) { Course.create!(course_name: "CSCE 607", course_number: "606", section: "501", instructor: "Dr.richey", faculty_email: "rrrcr@tamu.edu") }
     it "deletes the course and redirects to index" do
       expect {
         delete :clear
@@ -64,6 +68,48 @@ RSpec.describe CoursesController, type: :controller do
 
       expect(response).to redirect_to(root_path)
       expect(flash[:notice]).to eq("All courses have been deleted.")
+    end
+  end
+
+  describe "course identity uniqueness" do
+    it "rejects duplicate course_number and section even with whitespace differences" do
+      Course.create!(course_name: "CSCE 607", course_number: "606", section: "500", instructor: "Dr. Richey", faculty_email: "rrrr@tamu.edu")
+
+      duplicate = Course.new(
+        course_name: "CSCE 607 Duplicate",
+        course_number: " 606 ",
+        section: "500 ",
+        instructor: "Dr. Other",
+        faculty_email: "other@tamu.edu"
+      )
+
+      expect(duplicate).not_to be_valid
+      expect(duplicate.errors[:course_number]).to include("has already been taken")
+    end
+  end
+
+  describe "DELETE #destroy exact matching" do
+    let!(:target_course) do
+      Course.create!(course_name: "INTRO TO COMPUTER SYSTEM", course_number: "313/313H", section: "200-502", instructor: "A", faculty_email: "a@tamu.edu")
+    end
+    let!(:other_course) do
+      Course.create!(course_name: "INTRO TO COMPUTER SYSTEM", course_number: "313", section: "200", instructor: "B", faculty_email: "b@tamu.edu")
+    end
+    let!(:target_match) do
+      TaMatch.create!(course_number: "313/313H", section: "200-502", uin: "111111111")
+    end
+    let!(:other_match) do
+      TaMatch.create!(course_number: "313", section: "200", uin: "222222222")
+    end
+
+    it "removes only matches tied to the deleted course identity" do
+      expect do
+        delete :destroy, params: { id: target_course.id }
+      end.to change(Course, :count).by(-1)
+
+      expect(TaMatch.exists?(target_match.id)).to be(false)
+      expect(TaMatch.exists?(other_match.id)).to be(true)
+      expect(Course.exists?(other_course.id)).to be(true)
     end
   end
 

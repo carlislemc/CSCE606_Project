@@ -182,10 +182,14 @@ class AdminsController < ApplicationController
   def import_courses(csv_data)
     CSV.parse(csv_data, headers: true) do |row|
       ta_value = row["TA?"] || row["TA"]
-      Course.create!(
+      identity = {
+        course_number: row["Course_Number"].to_s.strip,
+        section: row["Section"].to_s.strip
+      }
+
+      course = Course.find_or_initialize_by(identity)
+      course.assign_attributes(
         course_name: row["Course_Name"],
-        course_number: row["Course_Number"],
-        section: row["Section"],
         instructor: row["Instructor"],
         faculty_email: row["Faculty_Email"],
         ta: ta_value,
@@ -193,6 +197,7 @@ class AdminsController < ApplicationController
         grader: row["Grader"],
         pre_reqs: row["Professor Pre-Reqs"]
       )
+      course.save!
     end
   end
 

@@ -110,7 +110,7 @@
         <tbody>
           <% @courses.each do |course| %>
             <tr data-course-id="<%= course.id %>">
-              <% if TaMatch.count == 0 && SeniorGraderMatch.count == 0 && GraderMatch.count && 0 %>
+              <% if TaMatch.count == 0 && SeniorGraderMatch.count == 0 && GraderMatch.count == 0 %>
                 <!-- Editable fields if assignments are empty -->
                 <td contenteditable="true" class="editable" data-column="course_name"><%= course.course_name %></td>
                 <td contenteditable="true" class="editable" data-column="course_number"><%= course.course_number %></td>
