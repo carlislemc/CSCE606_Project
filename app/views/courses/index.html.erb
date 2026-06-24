@@ -71,7 +71,7 @@
     <button id="toggle-form-btn" class="action-button">Add Course</button>
     <div class="intructions">
       <p>Click headers to sort by columns</p>
-      <p>Click on a cell to edit it. Editing is only possible before assignments are made.</p>
+      <p>TA, Senior Grader, and Grader counts remain editable after assignments.</p>
     </div>
     <div id="course-form-container" style="display: none; margin-bottom: 10px;">
       <%= form_with(model: Course.new, url: courses_path, method: :post, remote: true, html: { id: "course-form" }) do |f| %>
@@ -108,10 +108,20 @@
           </tr>
         </thead>
         <tbody>
+          <% assignments_exist = TaMatch.exists? || SeniorGraderMatch.exists? || GraderMatch.exists? %>
           <% @courses.each do |course| %>
             <tr data-course-id="<%= course.id %>">
-              <% if TaMatch.count == 0 && SeniorGraderMatch.count == 0 && GraderMatch.count == 0 %>
-                <!-- Editable fields if assignments are empty -->
+              <% if assignments_exist %>
+                <td><%= course.course_name %></td>
+                <td><%= course.course_number %></td>
+                <td><%= course.section %></td>
+                <td><%= course.instructor %></td>
+                <td><%= course.faculty_email %></td>
+                <td contenteditable="true" class="editable" data-column="ta"><%= course.ta %></td>
+                <td contenteditable="true" class="editable" data-column="senior_grader"><%= course.senior_grader %></td>
+                <td contenteditable="true" class="editable" data-column="grader"><%= course.grader %></td>
+                <td><%= course.pre_reqs %></td>
+              <% else %>
                 <td contenteditable="true" class="editable" data-column="course_name"><%= course.course_name %></td>
                 <td contenteditable="true" class="editable" data-column="course_number"><%= course.course_number %></td>
                 <td contenteditable="true" class="editable" data-column="section"><%= course.section %></td>
@@ -121,17 +131,6 @@
                 <td contenteditable="true" class="editable" data-column="senior_grader"><%= course.senior_grader %></td>
                 <td contenteditable="true" class="editable" data-column="grader"><%= course.grader %></td>
                 <td contenteditable="true" class="editable" data-column="pre_reqs"><%= course.pre_reqs %></td>
-              <% else %>
-                <!-- Non-editable fields if assignments are not empty -->
-                <td><%= course.course_name %></td>
-                <td><%= course.course_number %></td>
-                <td><%= course.section %></td>
-                <td><%= course.instructor %></td>
-                <td><%= course.faculty_email %></td>
-                <td><%= course.ta %></td>
-                <td><%= course.senior_grader %></td>
-                <td><%= course.grader %></td>
-                <td><%= course.pre_reqs %></td>
               <% end %>
               <td>
                 <%= button_to 'Delete Course', course_path(course), method: :delete, remote: true,
@@ -173,12 +172,21 @@
     });
 
     document.querySelectorAll('.editable').forEach(cell => {
+      cell.addEventListener('focus', function() {
+        this.dataset.originalValue = this.innerText;
+      });
+
       cell.addEventListener('blur', function() {
         const row = this.closest('tr');
         const column = this.getAttribute('data-column');
         const newValue = this.innerText;
+        const originalValue = this.dataset.originalValue;
         const courseId = row.getAttribute('data-course-id');
         const csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+        if (newValue === originalValue) {
+          return;
+        }
 
         fetch('/courses/' + courseId, {
           method: 'PATCH',
@@ -191,9 +199,23 @@
               [column]: newValue
             }
           })
-        }).then(response => response.json())
-          .then(data => console.log('Course updated:', data))
-          .catch(error => console.error('Error:', error));
+        }).then(response => {
+          return response.json().then(data => ({ ok: response.ok, data: data }));
+        }).then(({ ok, data }) => {
+          if (!ok) {
+            this.innerText = originalValue;
+            const errors = Array.isArray(data.errors) ? data.errors.join(', ') : 'Update failed.';
+            alert(errors);
+            return;
+          }
+
+          this.dataset.originalValue = this.innerText;
+          console.log('Course updated:', data);
+        }).catch(error => {
+          this.innerText = originalValue;
+          console.error('Error:', error);
+          alert('Update failed. Please try again.');
+        });
       });
     });
   </script>

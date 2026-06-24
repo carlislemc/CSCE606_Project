@@ -70,9 +70,22 @@ class CoursesController < ApplicationController
     # Rails.logger.debug "Received Headers: #{request.headers.to_h}"
     # Rails.logger.debug "Params: #{params.inspect}"
     @course = Course.find(params[:id])
+    previous_ta = @course.ta.to_f
+    previous_senior_grader = @course.senior_grader.to_f
+    previous_grader = @course.grader.to_f
+
+    if staffing_reduction_invalid?(@course, course_params)
+      respond_to do |format|
+        format.html { redirect_to courses_path, alert: @course.errors.full_messages.to_sentence }
+        format.json { render json: { errors: @course.errors.full_messages }, status: :unprocessable_entity }
+      end
+      return
+    end
 
     respond_to do |format|
       if @course.update(course_params)
+        staffing_changed = staffing_values_changed?(@course, previous_ta, previous_senior_grader, previous_grader)
+        rebuild_new_needs_csv if staffing_changed && assignments_present?
         format.html { redirect_to courses_path, notice: "Course was successfully updated." }
         format.json { render json: { message: "Course updated successfully", id: @course.id }, status: :ok }
       else
@@ -189,6 +202,44 @@ class CoursesController < ApplicationController
       backup_unassigned_applicant(match.uin)
       match.destroy
     end
+  end
+
+  def assignments_present?
+    TaMatch.exists? || GraderMatch.exists? || SeniorGraderMatch.exists?
+  end
+
+  def staffing_values_changed?(course, previous_ta, previous_senior_grader, previous_grader)
+    course.ta.to_f != previous_ta ||
+      course.senior_grader.to_f != previous_senior_grader ||
+      course.grader.to_f != previous_grader
+  end
+
+  def staffing_reduction_invalid?(course, params_hash)
+    return false unless params_hash.present?
+
+    validate_reduction_for_role(course, params_hash, :ta, TaMatch)
+    validate_reduction_for_role(course, params_hash, :senior_grader, SeniorGraderMatch)
+    validate_reduction_for_role(course, params_hash, :grader, GraderMatch)
+
+    course.errors.any?
+  end
+
+  def validate_reduction_for_role(course, params_hash, field_name, model_class)
+    return unless params_hash.key?(field_name)
+
+    requested_count = params_hash[field_name].to_f
+    assigned_count = assigned_count_for_course(model_class, course)
+    return unless requested_count < assigned_count
+
+    course.errors.add(field_name, "cannot be set below assigned count (#{assigned_count}). Delete assignments first.")
+  end
+
+  def assigned_count_for_course(model_class, course)
+    model_class.where(
+      "LOWER(course_number) = ? AND LOWER(section) = ?",
+      course.course_number.to_s.strip.downcase,
+      course.section.to_s.strip.downcase
+    ).count
   end
 
   private
