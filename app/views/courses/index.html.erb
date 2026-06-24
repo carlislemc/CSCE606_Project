@@ -192,6 +192,7 @@
           method: 'PATCH',
           headers: {
             'Content-Type': 'application/json',
+            'Accept': 'application/json',
             'X-CSRF-Token': csrfToken
           },
           body: JSON.stringify({
@@ -199,8 +200,10 @@
               [column]: newValue
             }
           })
-        }).then(response => {
-          return response.json().then(data => ({ ok: response.ok, data: data }));
+        }).then(async response => {
+          const contentType = response.headers.get('content-type') || '';
+          const data = contentType.includes('application/json') ? await response.json() : {};
+          return { ok: response.ok, data: data };
         }).then(({ ok, data }) => {
           if (!ok) {
             this.innerText = originalValue;
