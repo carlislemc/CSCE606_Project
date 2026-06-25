@@ -273,6 +273,38 @@ class RecordsController < ApplicationController
       csv << attributes.values
     end
   end
+
+  # Download selected records table as CSV.
+  def export
+    table_name = params[:table].to_s
+    model_map = {
+      "ta_matches" => TaMatch,
+      "grader_matches" => GraderMatch,
+      "senior_grader_matches" => SeniorGraderMatch,
+      "recommendations" => Recommendation
+    }
+
+    model_class = model_map[table_name]
+    unless model_class
+      redirect_back fallback_location: all_records_path, alert: "Unsupported table for export." and return
+    end
+
+    records = model_class.all
+    excluded_columns = %w[id created_at updated_at]
+    headers = model_class.column_names - excluded_columns
+
+    csv_data = CSV.generate(headers: true) do |csv|
+      csv << headers
+      records.find_each do |record|
+        csv << headers.map { |header| record.public_send(header) }
+      end
+    end
+
+    send_data csv_data,
+              filename: "#{table_name}_#{Date.current}.csv",
+              type: "text/csv",
+              disposition: "attachment"
+  end
 end
 
 
